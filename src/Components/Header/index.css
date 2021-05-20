@@ -1,0 +1,18 @@
+.navbar{
+    margin: 0px;
+    padding: 0px;
+}
+
+.container-fluid{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: #b3b3b3;
+}
+
+.htext{
+    color: #f1f1f1;
+    font-weight: bold;
+    font-style: revert;
+    padding-top: 10px;
+}
