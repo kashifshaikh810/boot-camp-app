@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from "react";
-import { useHistory } from 'react-router-dom';
-import Header from '../../Header/index'
+import { useHistory, Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
 const Login = () => {
@@ -22,7 +21,7 @@ const Login = () => {
     try{
         setIsLoading(true)
         await firebase.auth().signInWithEmailAndPassword(email, password)
-        history.push('/dashboard')
+        history.push('/')
         setIsLoading(false)
         setEmail('')
         setPassword('')
@@ -37,9 +36,10 @@ const Login = () => {
     setPassword('')
   },[])
 
+if(firebase.auth()?.currentUser?.uid){
+  <Redirect to="/" />
+}  
   return (
-    <>
-    <Header />
     <div className="login" style={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
       <div className="card text-white bg-secondary mb-3" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: "40rem", height: "40rem", borderRadius: 20 }}>
           <form className="row g-3 needs-validation" onSubmit={(e) => handleSubmit(e)}>
@@ -92,7 +92,6 @@ const Login = () => {
         </form>
       </div>
     </div>
-    </>
   );
 };
 

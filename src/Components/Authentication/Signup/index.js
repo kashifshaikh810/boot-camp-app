@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Header from "../../Header/index";
 import firebase from "firebase/app";
 
 const SignUp = () => {
@@ -70,8 +69,6 @@ const SignUp = () => {
   }, []);
 
   return (
-    <>
-      <Header />
       <div
         className="SignUp"
         style={{
@@ -159,7 +156,7 @@ const SignUp = () => {
                   class="alert alert-success d-flex align-items-center"
                   role="alert"
                 >
-                  Successfully Sign Up.
+                  Congratulations ! SignUp Successfully. 
                 </div>
               ) : null}
 
@@ -204,7 +201,6 @@ const SignUp = () => {
           </form>
         </div>
       </div>
-    </>
   );
 };
 
