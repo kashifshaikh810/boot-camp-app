@@ -9,6 +9,7 @@ import Orders from '../Orders/index';
 import ContactUs from '../ContactUs/index';
 import Message from '../BuyerMessages/index';
 import Header from '../Header/index';
+import Footer from '../Footer/index';
 import firebase from 'firebase/app';
 
 const Routing = () => {
@@ -34,6 +35,7 @@ const Routing = () => {
         <Route path="/contactus" component={ContactUs} />
         <Route path="/message" component={Message} />
     </Switch>
+      <Footer />
     </Router>
   );
 }
