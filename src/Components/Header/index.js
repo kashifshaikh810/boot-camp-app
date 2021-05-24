@@ -46,6 +46,10 @@ const Header = () => {
     history.push('/login')
   };
 
+  const goYourOrder = () => {
+    history.push('/yourorders')
+  };
+
     useEffect(() => {
       firebase.auth().onAuthStateChanged((user) => {
         let uid = user?.uid;
@@ -177,6 +181,20 @@ const Header = () => {
               </span>
             </li>
           </ul>
+
+          <div className="nav-item" onClick={goYourOrder}>
+          <span
+                className="nav-link"
+                style={{
+                  paddingLeft: 20,
+                  cursor: "pointer",
+                  fontSize: 20,
+                }}
+              >
+                Your Orders
+              </span>
+          </div>
+
          {uid ? <button type="button" className="btn btn-outline-success" onClick={logBtn}>Log Out</button> : null}
         </div>
       </div>
