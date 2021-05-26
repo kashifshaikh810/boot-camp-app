@@ -5,8 +5,9 @@ import {Storage} from '../firebase/index';
 const AddItems = () => {
   const [productTitile, setProductTitile] = useState('');
   const [productPrice, setProductPrice] = useState('');
-  const [productCondition, setProductCondition] = useState('Used');
+  const [productCondition, setProductCondition] = useState('');
   const [productImage, setProductImage] = useState('');
+  const [yourLocation, setYourLocation] = useState('');
   const [description, setDescription] = useState('');
   const [show, setShow] = useState(false);
   const [err, setErr] = useState(false);
@@ -24,6 +25,11 @@ const AddItems = () => {
 
   const proCondition = (e) => {
     setProductCondition(e.target.value);
+    setErr(false)
+  }
+
+  const location = (e) => {
+    setYourLocation(e.target.value);
     setErr(false)
   }
 
@@ -61,6 +67,7 @@ const AddItems = () => {
     firebase.database().ref(`/addItems/${uid}`).push({
       productTitile: productTitile,
       productPrice: productPrice,
+      yourLocation: yourLocation,
       productCondition: productCondition,
       productImage: productImage,
       description: description,
@@ -74,7 +81,7 @@ const AddItems = () => {
   }}
 
   return (
-    <div style={{display: 'flex', justifyContent: "center", height: '88vh', backgroundColor: '#f2f2f2', margin: 0, padding: 0}}>
+    <div style={{display: 'flex', justifyContent: "center", height: '92vh', backgroundColor: '#f2f2f2', margin: 0, padding: 0}}>
     <div className="card" style={{width: '50%', height: '80vh', borderRadius: '4%'}}>
         <div style={{backgroundColor: '#b3b3b3', display: 'flex', justifyContent: 'center', paddingTop: 10, borderRadius: 10}}>
         <p style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white', fontStyle: 'revert'}}>Add Items</p>
@@ -110,11 +117,24 @@ const AddItems = () => {
             />
           </div>
 
+          <div className="mb-3"> 
+            <label className="form-label">Your Location</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your Location"
+              required
+              value={yourLocation}
+              onChange={(e) => location(e)}
+            />
+          </div>
+
           <p style={{margin: 0, padding: 0, paddingBottom: 8}}>Product Condition</p>
           <select className="form-select" aria-label="Default select example"
           value={productCondition}
           onChange={(e) => proCondition(e)}
           >
+          <option>Select</option>
           <option value="Used">Used</option>
           <option value="New">New</option>
           </select>

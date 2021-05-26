@@ -2,6 +2,7 @@
 import React,{useState, useEffect} from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import * as Icon from 'react-bootstrap-icons';
 import firebase from 'firebase/app';
 import { useHistory } from "react-router-dom";
 
@@ -49,6 +50,10 @@ const Header = () => {
   const goYourOrder = () => {
     history.push('/yourorders')
   };
+
+  const goShowCarts = () => {
+    history.push('/showcarts')
+  }
 
     useEffect(() => {
       firebase.auth().onAuthStateChanged((user) => {
@@ -181,6 +186,18 @@ const Header = () => {
               </span>
             </li>
           </ul>
+
+          <div className="nav-item">
+          <span
+                className="nav-link"
+                style={{
+                  fontSize: 20,
+                  color: '#f1f1f1'
+                }}
+              >
+                <Icon.Cart4 style={{marginBottom: 6, marginLeft: 10, color: 'black', fontSize: 45, cursor: 'pointer'}} onClick={goShowCarts} />
+              </span>
+          </div>
 
           <div className="nav-item" onClick={goYourOrder}>
           <span

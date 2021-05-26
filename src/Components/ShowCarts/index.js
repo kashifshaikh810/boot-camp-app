@@ -1,46 +1,46 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
-import * as Icon from "react-bootstrap-icons";
+import * as Icon from 'react-bootstrap-icons';
 
-const Dashboard = () => {
+const ShowCarts = () => {
   const [allItems, setAllItems] = useState([]);
-
-  const addCarts = (e, items) => {
-    e.preventDefault();
-    let productPrice = items.productPrice;
-    let productTitile = items.productTitile;
-    let yourLocation = items.yourLocation;
-    let productImage = items.productImage;
-    let productCondition = items.productCondition;
-    let description = items.description;
-    let uid = firebase.auth()?.currentUser?.uid;
-    firebase.database().ref(`/addCarts/${uid}`).push({
-      productTitile: productTitile,
-      productPrice: productPrice,
-      productCondition: productCondition,
-      yourLocation: yourLocation,
-      productImage: productImage,
-      description: description,
-    });
-    alert("Congratulations... Cart Added Successfully.. !");
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [keys, setkeys] = useState('');
+  const [uid, setUid] = useState('');
 
   useEffect(() => {
+      setIsLoading(true)
+    let uid = firebase.auth()?.currentUser?.uid;
+    setUid(uid)
     firebase
       .database()
-      .ref(`/addItems/`)
+      .ref(`/addCarts/${uid}`)
       .on("value", (snapshot) => {
         let data = snapshot.val() ? Object.values(snapshot.val()) : [];
-        data.forEach((item) => {
-          let newData = Object.values(item);
-          setAllItems(newData);
-        });
+        let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
+        setkeys(key)
+        setAllItems(data);
+        setIsLoading(false)
       });
-  }, []);
+  }, [isLoading]);
+
+    const deletedCart = (e, i) => {
+        e.preventDefault()
+        firebase.database().ref(`/addCarts/${uid}/${keys[i]}`).remove()
+        alert('Congratulations... Cart Deleted Successfully !')
+    }
 
   return (
-    <div style={{ height: "auto" }}>
+      <>
+      { isLoading ? 
+      <div style={{height: '83vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <div className="spinner-border text-success" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+      </div>
+     :
+    <div style={{height: 'auto'}}>
       <div
         style={{
           display: "flex",
@@ -66,97 +66,19 @@ const Dashboard = () => {
               fontStyle: "revert",
             }}
           >
-            Home Page
+            Show Carts
           </p>
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        <div
-          className="card"
-          style={{
-            width: "95%",
-            height: "50vh",
-            paddingTop: 10,
-            backgroundColor: "#f2f2f2",
-            borderRadius: 20,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginLeft: 20,
-            }}
-          >
-            <div>
-              <img
-                src={"./off.jpg"}
-                style={{ width: "140%", height: "45vh", borderRadius: 20 }}
-              />
-            </div>
-            <div>
-              <img
-                src={"./offTwo.jpg"}
-                style={{
-                  width: "95%",
-                  height: "45vh",
-                  marginLeft: 7,
-                  borderRadius: 20,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#b3b3b3",
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: 10,
-            borderRadius: 10,
-            width: "30%",
-            marginTop: 10,
-          }}
-        >
-          <p
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              color: "white",
-              fontStyle: "revert",
-            }}
-          >
-            Available Items You Can Buy Now
-          </p>
-        </div>
-      </div>
-
-      {allItems.map((val) => {
+      {allItems.map((val, index) => {
         return (
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <div
               className="card"
               style={{
                 width: "30%",
-                height: "90vh",
+                height: "99vh",
                 backgroundColor: "#f2f2f2",
                 borderRadius: 20,
                 margin: 20,
@@ -206,7 +128,7 @@ const Dashboard = () => {
                         fontStyle: "revert",
                       }}
                     >
-                      ${val.productPrice}
+                     ${val.productPrice}
                     </p>
                   </div>
 
@@ -275,29 +197,48 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={(e) => addCarts(e, val)}
-                  >
-                    Add to Cart
-                    <Icon.Cart4
-                      style={{
-                        marginBottom: 5,
-                        padding: 0,
-                        marginLeft: 10,
-                        fontSize: 25,
-                      }}
-                    />
-                  </button>
+                <div>
                 </div>
+                <div style={{ display: "flex" }}>
+                    <p style={{ marginLeft: 10, fontSize: 35, fontWeight: 'bold' }}>Quantity : </p>
+                  <div style={{backgroundColor: 'green', width: 60, height: 60, borderRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', marginLeft: 20}}>
+                    <Icon.CartPlusFill size={30} style={{ color: '#f1f1f1'}} />
+                  </div>
+
+                  <div style={{backgroundColor: 'red', width: 60, height: 60, borderRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', marginLeft: 20}}>
+                  <Icon.CartDashFill size={30} style={{color: '#f1f1f1'}} />
+                  </div>
+
+                </div>
+                    <div>
+                    <p style={{ marginLeft: 15, fontSize: 25, }}><b>Rs</b> : ${val.productPrice}</p>
+                    </div>
+
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', marginRight: 40}}>
+                    <div className="d-grid gap-2">
+                    <button style={{borderRadius: 12, width: '120%'}} className="btn btn-success" type="button">
+                    <Icon.Briefcase style={{marginRight: 10}} />
+                        Check Out Cart
+                        </button>
+                    </div>
+
+                    <div className="d-grid gap-2">
+                    <button style={{borderRadius: 12, width: '130%'}} className="btn btn-danger" onClick={(e) => deletedCart(e, index)}>
+                        <Icon.Trash style={{marginRight: 10}} />
+                        Delete Cart
+                        </button>
+                    </div>
+                    </div>
+
               </div>
             </div>
           </div>
         );
       })}
     </div>
+    }
+    </>
   );
 };
 
-export default Dashboard;
+export default ShowCarts;
