@@ -33,9 +33,9 @@ const ShowCarts = () => {
 
   return (
       <>
-      { isLoading ? 
+      {allItems.length > 0 ? isLoading ? 
       <div style={{height: '83vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <div className="spinner-border text-success" role="status">
+      <div className="spinner-border text-success" style={{width: '4rem', height: '4rem'}} role="status">
       <span className="visually-hidden">Loading...</span>
     </div>
       </div>
@@ -236,7 +236,7 @@ const ShowCarts = () => {
         );
       })}
     </div>
-    }
+    : <p style={{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>No Carts Added</p> }
     </>
   );
 };

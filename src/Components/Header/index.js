@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 const Header = () => {
   let history = useHistory();
   const [uid, setUid] = useState('')
+  const [allItems, setAllItems] = useState([]);
 
   const goHome = () => {
     history.push("/");
@@ -59,8 +60,16 @@ const Header = () => {
       firebase.auth().onAuthStateChanged((user) => {
         let uid = user?.uid;
         setUid(uid);
+        firebase
+          .database()
+          .ref(`/addCarts/${uid}`)
+          .on("value", (snapshot) => {
+            let data = snapshot.val() ? Object.values(snapshot.val()) : [];
+            setAllItems(data);
+          });
       });
     },[uid])
+
 
   return (
     <h1>
@@ -187,7 +196,7 @@ const Header = () => {
             </li>
           </ul>
 
-          <div className="nav-item">
+          <div className="nav-item" onClick={goShowCarts}>
           <span
                 className="nav-link"
                 style={{
@@ -195,7 +204,8 @@ const Header = () => {
                   color: '#f1f1f1'
                 }}
               >
-                <Icon.Cart4 style={{marginBottom: 6, marginLeft: 10, color: 'black', fontSize: 45, cursor: 'pointer'}} onClick={goShowCarts} />
+                {allItems.length > 0 ? <span style={{position: 'absolute', zIndex: 1, top: 3, right: '28vh', backgroundColor: 'red', width: 30, height: 30, borderRadius: 15, color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer',}}>{allItems.length}</span> : null}
+                <Icon.Cart4 style={{marginBottom: 6, marginLeft: 10, color: 'black', fontSize: 45, cursor: 'pointer', }} />
               </span>
           </div>
 

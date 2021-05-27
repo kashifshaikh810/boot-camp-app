@@ -40,7 +40,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div style={{ height: "auto" }}>
+    <div style={{ height: "auto", marginBottom: 60 }}>
       <div
         style={{
           display: "flex",
