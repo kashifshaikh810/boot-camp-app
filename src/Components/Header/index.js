@@ -204,7 +204,7 @@ const Header = () => {
                   color: '#f1f1f1'
                 }}
               >
-                {allItems.length > 0 ? <span style={{position: 'absolute', zIndex: 1, top: 3, right: '28vh', backgroundColor: 'red', width: 30, height: 30, borderRadius: 15, color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer',}}>{allItems.length}</span> : null}
+                {allItems.length > 0 ? <span style={{position: 'absolute', zIndex: 1, top: 3, right: '28vh', backgroundColor: '#f36e36', width: 30, height: 30, borderRadius: 15, color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer',}}>{allItems.length}</span> : null}
                 <Icon.Cart4 style={{marginBottom: 6, marginLeft: 10, color: 'black', fontSize: 45, cursor: 'pointer', }} />
               </span>
           </div>

@@ -71,7 +71,7 @@ if(firebase.auth()?.currentUser?.uid){
 
               <div className="d-grid gap-2">
               <button className="btn btn-outline-danger" type="submit">{isLoading ? (
-                    <div class="spinner-border" role="status">
+                    <div class="spinner-border" role="status" style={{width: '1rem', height: '1rem'}}>
                       <span class="visually-hidden">Loading...</span>
                     </div>
                   ) : (

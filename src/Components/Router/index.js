@@ -12,6 +12,7 @@ import Header from "../Header/index";
 import Footer from "../Footer/index";
 import YourOrders from "../Your Orders/index";
 import ShowCarts from "../ShowCarts/index";
+import CheckOutForm from "../CheckOutForms/index";
 import firebase from "firebase/app";
 
 const Routing = () => {
@@ -23,7 +24,9 @@ const Routing = () => {
     firebase.auth().onAuthStateChanged((user) => {
       let uid = user?.uid;
       setUid(uid);
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     });
   }, [uid]);
 
@@ -52,6 +55,7 @@ const Routing = () => {
             <Route path="/contactus" component={ContactUs} />
             <Route path="/message" component={Message} />
             <Route path="/showcarts" component={ShowCarts} />
+            <Route path="/checkoutform" component={CheckOutForm} />
             <Route path="/yourorders" component={YourOrders} />
           </Switch>
           <Footer />

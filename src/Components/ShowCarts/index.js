@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import firebase from "firebase/app";
 import * as Icon from 'react-bootstrap-icons';
 
@@ -7,6 +8,7 @@ const ShowCarts = () => {
   const [allItems, setAllItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [keys, setkeys] = useState('');
+  let history = useHistory()
   const [uid, setUid] = useState('');
 
   useEffect(() => {
@@ -30,6 +32,11 @@ const ShowCarts = () => {
         firebase.database().ref(`/addCarts/${uid}/${keys[i]}`).remove()
         alert('Congratulations... Cart Deleted Successfully !')
     }
+
+    const goToCheckOutForm = (e) => {
+      e.preventDefault()
+      history.push('/checkoutform')
+    } 
 
   return (
       <>
@@ -215,7 +222,7 @@ const ShowCarts = () => {
                     </div>
 
                     <div style={{display: 'flex', justifyContent: 'space-evenly', marginRight: 40}}>
-                    <div className="d-grid gap-2">
+                    <div className="d-grid gap-2" onClick={(e) => goToCheckOutForm(e)}>
                     <button style={{borderRadius: 12, width: '120%'}} className="btn btn-success" type="button">
                     <Icon.Briefcase style={{marginRight: 10}} />
                         Check Out Cart

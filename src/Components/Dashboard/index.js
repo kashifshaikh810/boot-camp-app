@@ -40,7 +40,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div style={{ height: "auto", marginBottom: 60 }}>
+    <div style={{ height: "auto", marginBottom: 60 , }}>
       <div
         style={{
           display: "flex",
@@ -56,6 +56,7 @@ const Dashboard = () => {
             paddingTop: 10,
             borderRadius: 10,
             width: "70%",
+            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
           }}
         >
           <p
@@ -87,6 +88,7 @@ const Dashboard = () => {
             paddingTop: 10,
             backgroundColor: "#f2f2f2",
             borderRadius: 20,
+            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
           }}
         >
           <div
@@ -134,6 +136,7 @@ const Dashboard = () => {
             borderRadius: 10,
             width: "30%",
             marginTop: 10,
+            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
           }}
         >
           <p
@@ -161,6 +164,7 @@ const Dashboard = () => {
                 borderRadius: 20,
                 margin: 20,
                 marginLeft: 40,
+            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
               }}
             >
               <div>
@@ -275,9 +279,12 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: "flex", justifyContent: "center",  }}>
                   <button
                     className="btn btn-primary"
+                    style={{
+            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+                    }}
                     onClick={(e) => addCarts(e, val)}
                   >
                     Add to Cart
