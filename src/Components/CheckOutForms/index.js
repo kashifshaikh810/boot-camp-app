@@ -36,7 +36,7 @@ const CheckOutForm = () => {
       e.preventDefault()
       setIsLoading(true)
     let uid = firebase.auth()?.currentUser?.uid;
-    firebase.database().ref(`/buyItem/${uid}`).push({
+    firebase.database().ref(`/buyItem/${uid}`).set({
         firstName: firstName,
         lastName: lastName,
         yourLocation: yourLocation,

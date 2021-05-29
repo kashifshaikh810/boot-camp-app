@@ -47,7 +47,7 @@ const ShowCarts = () => {
     </div>
       </div>
      :
-    <div style={{height: 'auto'}}>
+    <div style={{height: '223vw'}}>
       <div
         style={{
           display: "flex",
@@ -223,16 +223,16 @@ const ShowCarts = () => {
 
                     <div style={{display: 'flex', justifyContent: 'space-evenly', marginRight: 40}}>
                     <div className="d-grid gap-2" onClick={(e) => goToCheckOutForm(e)}>
-                    <button style={{borderRadius: 12, width: '120%'}} className="btn btn-success" type="button">
+                    <button style={{borderRadius: 12, width: '110%'}} className="btn btn-success" type="button">
                     <Icon.Briefcase style={{marginRight: 10}} />
-                        Check Out Cart
+                        Proceed to Check Out
                         </button>
                     </div>
 
                     <div className="d-grid gap-2">
-                    <button style={{borderRadius: 12, width: '130%'}} className="btn btn-danger" onClick={(e) => deletedCart(e, index)}>
+                    <button style={{borderRadius: 12, width: '110%'}} className="btn btn-danger" onClick={(e) => deletedCart(e, index)}>
                         <Icon.Trash style={{marginRight: 10}} />
-                        Delete Cart
+                        Remove Cart
                         </button>
                     </div>
                     </div>
