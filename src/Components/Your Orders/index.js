@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
+import * as Icon from 'react-bootstrap-icons';
 
 const YourOrders = () => {
   const [data, setData] = useState("");
@@ -13,6 +15,8 @@ const YourOrders = () => {
   const [showLocation, setShowLocation] = useState(true);
   const [showLastName, setShowLastName] = useState(true);
   const [showCart, setShowCart] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [buyCartData, setBuyCartData] = useState([]);
 
     const handleUpdateFirstName = (e) => {
         setfirstName(e.target.value)
@@ -115,6 +119,7 @@ const YourOrders = () => {
     }
 
   useEffect(() => {
+    setIsLoading(true)
     let uid = firebase.auth()?.currentUser?.uid;
     firebase
       .database()
@@ -122,6 +127,15 @@ const YourOrders = () => {
       .on("value", (snapshot) => {
         let snap = snapshot.val() ? snapshot.val() : [];
         setData(snap);
+      });
+
+      firebase
+      .database()
+      .ref(`/buyCart/${uid}`)
+      .on("value", (snapshot) => {
+        let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
+        setBuyCartData(snap);
+        setIsLoading(false)
       });
   }, []);
 
@@ -170,10 +184,10 @@ const YourOrders = () => {
             boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", }}>
             <p style={{ fontSize: 20, fontStyle: "revert" }}>
               
-              <b style={{ fontSize: 20, fontStyle: "revert" }}>
+              <b style={{ fontSize: 20, fontStyle: "revert",}}>
                 First Name 
               </b> : {data.firstName}
             </p>
@@ -337,6 +351,191 @@ const YourOrders = () => {
           
         </div>
       </div>
+
+      {buyCartData.length > 0 ? isLoading ? 
+      <div style={{height: '83vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <div className="spinner-border text-success" style={{width: '4rem', height: '4rem'}} role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+      </div>
+     :
+    <div style={{height: '223vw',}}>
+
+      {buyCartData.map((item, index) => {
+        return (
+          <div style={{flexWrap: 'wrap'}}>
+            <div
+              className="card"
+              style={{
+                width: "40%",
+                height: "107vh",
+                backgroundColor: "#f2f2f2",
+                borderRadius: 20,
+                margin: 20,
+                marginLeft: 40,
+                boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+              }}
+            >
+              <div>
+                <img
+                  src={item.productImage}
+                  style={{ width: "100%", height: "45vh", borderRadius: 20 }}
+                />
+                <div style={{ marginTop: 20 }}>
+                  <div style={{ display: "flex", marginLeft: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      Product Titile :
+                    </p>
+                    <p
+                      style={{
+                        marginLeft: 5,
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      {item.productTitile}
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", marginLeft: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      Product Price :
+                    </p>
+                    <p
+                      style={{
+                        marginLeft: 5,
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                     ${item.productPrice}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "flex", marginLeft: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      Location :
+                    </p>
+                    <p
+                      style={{
+                        marginLeft: 5,
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      {item.yourLocation}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "flex", marginLeft: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      Product Condition :
+                    </p>
+                    <p
+                      style={{
+                        marginLeft: 5,
+                        fontSize: 20,
+                        fontStyle: "revert",
+                      }}
+                    >
+                      {item.productCondition}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "flex", marginLeft: 10 }}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        fontStyle: "revert",
+                        width: "25%",
+                      }}
+                    >
+                      Description :
+                    </p>
+                    <p
+                      style={{
+                        marginLeft: 5,
+                        fontSize: 20,
+                        fontStyle: "revert",
+                        width: "60%",
+                      }}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                </div>
+                <div style={{ display: "flex" }}>
+                    <p style={{ marginLeft: 10, fontSize: 35, fontWeight: 'bold' }}>Product Quantity : </p>
+                  
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 15}}>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 15, backgroundColor: '#f36e36', width: 40, height: 40, borderRadius: 40}}>
+                    <span style={{fontSize: 30, fontStyle: 'revert', color: '#f1f1f1'}}>{item.productValue}</span>
+                  </div>
+                  </div>
+
+                </div>
+                      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10}}>
+                    <div style={{backgroundColor: '#b3b3b3', width: '85%', height: 50, borderRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <p style={{ marginLeft: 15, fontSize: 25, paddingTop: 10}}><b style={{color: '#f3f3f3'}}>Total Amount :</b>  <span style={{color: 'blue' }}>${item.totalPrice}</span> </p>
+                    </div>
+                      </div>
+
+                      <div style={{display: 'flex', fontSize: 25}}>
+                       <b style={{marginLeft: 10, marginRight: 5}}>Status</b> 
+                     : <p style={{marginLeft: 5}}>{item.status}</p>
+                      </div>
+
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', marginRight: 40}}>
+                    {/* <div className="d-grid gap-2" >
+                    <button style={{borderRadius: 12,}} className="btn btn-success" type="button">
+                    <Icon.Briefcase style={{marginRight: 10}} />
+                        Proceed to Check Out
+                        </button>
+                    </div> */}
+
+                    <div className="d-grid gap-2">
+                    <button style={{borderRadius: 12,}} className="btn btn-danger">
+                        <Icon.X size={30} style={{marginBottom: 1}}/>
+                        Cancel Order
+                        </button>
+                    </div>
+                    </div>
+
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+    : <p style={{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>No Carts Added</p> }
+
+
     </div>
   );
 };

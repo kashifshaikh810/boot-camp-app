@@ -9,11 +9,13 @@ const Dashboard = () => {
   const addCarts = (e, items) => {
     e.preventDefault();
     let productPrice = items.productPrice;
+    let totalPrice = items.productPrice;
     let productTitile = items.productTitile;
     let yourLocation = items.yourLocation;
     let productImage = items.productImage;
     let productCondition = items.productCondition;
     let description = items.description;
+    let productValue = 1;
     let uid = firebase.auth()?.currentUser?.uid;
     firebase.database().ref(`/addCarts/${uid}`).push({
       productTitile: productTitile,
@@ -22,6 +24,8 @@ const Dashboard = () => {
       yourLocation: yourLocation,
       productImage: productImage,
       description: description,
+      productValue: productValue,
+      totalPrice: totalPrice,
     });
     alert("Congratulations... Cart Added Successfully.. !");
   };
