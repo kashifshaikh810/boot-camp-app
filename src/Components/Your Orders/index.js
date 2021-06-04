@@ -17,6 +17,7 @@ const YourOrders = () => {
   const [showCart, setShowCart] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [buyCartData, setBuyCartData] = useState([]);
+  const [keys, setKeys] = useState('');
 
     const handleUpdateFirstName = (e) => {
         setfirstName(e.target.value)
@@ -118,6 +119,12 @@ const YourOrders = () => {
         setCartNo('')
     }
 
+    const handleCancelOrder = (e, i) => {
+      e.preventDefault()
+      let uid = firebase.auth()?.currentUser?.uid;
+      firebase.database().ref(`/buyCart/${uid}/${keys[i]}`).remove()
+    }
+
   useEffect(() => {
     setIsLoading(true)
     let uid = firebase.auth()?.currentUser?.uid;
@@ -134,6 +141,8 @@ const YourOrders = () => {
       .ref(`/buyCart/${uid}`)
       .on("value", (snapshot) => {
         let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
+        let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
+        setKeys(key)
         setBuyCartData(snap);
         setIsLoading(false)
       });
@@ -519,7 +528,7 @@ const YourOrders = () => {
                         </button>
                     </div> */}
 
-                    <div className="d-grid gap-2">
+                    <div className="d-grid gap-2" onClick={(e) => handleCancelOrder(e, index)}>
                     <button style={{borderRadius: 12,}} className="btn btn-danger">
                         <Icon.X size={30} style={{marginBottom: 1}}/>
                         Cancel Order
@@ -533,7 +542,7 @@ const YourOrders = () => {
         );
       })}
     </div>
-    : <p style={{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>No Carts Added</p> }
+    : isLoading ?  null : <p style={{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>No Carts Added</p> }
 
 
     </div>

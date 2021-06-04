@@ -2,32 +2,39 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import * as Icon from "react-bootstrap-icons";
+import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
   const [allItems, setAllItems] = useState([]);
+  let history = useHistory();
+  const [uid, setUid] = useState("");
 
   const addCarts = (e, items) => {
     e.preventDefault();
-    let productPrice = items.productPrice;
-    let totalPrice = items.productPrice;
-    let productTitile = items.productTitile;
-    let yourLocation = items.yourLocation;
-    let productImage = items.productImage;
-    let productCondition = items.productCondition;
-    let description = items.description;
-    let productValue = 1;
-    let uid = firebase.auth()?.currentUser?.uid;
-    firebase.database().ref(`/addCarts/${uid}`).push({
-      productTitile: productTitile,
-      productPrice: productPrice,
-      productCondition: productCondition,
-      yourLocation: yourLocation,
-      productImage: productImage,
-      description: description,
-      productValue: productValue,
-      totalPrice: totalPrice,
-    });
-    alert("Congratulations... Cart Added Successfully.. !");
+    if (!uid) {
+      history.push("/login");
+    } else {
+      let productPrice = items.productPrice;
+      let totalPrice = items.productPrice;
+      let productTitile = items.productTitile;
+      let yourLocation = items.yourLocation;
+      let productImage = items.productImage;
+      let productCondition = items.productCondition;
+      let description = items.description;
+      let productValue = 1;
+      let uid = firebase.auth()?.currentUser?.uid;
+      firebase.database().ref(`/addCarts/${uid}`).push({
+        productTitile: productTitile,
+        productPrice: productPrice,
+        productCondition: productCondition,
+        yourLocation: yourLocation,
+        productImage: productImage,
+        description: description,
+        productValue: productValue,
+        totalPrice: totalPrice,
+      });
+      alert("Congratulations... Cart Added Successfully.. !");
+    }
   };
 
   useEffect(() => {
@@ -41,10 +48,15 @@ const Dashboard = () => {
           setAllItems(newData);
         });
       });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      let uid = user?.uid;
+      setUid(uid);
+    });
   }, []);
 
   return (
-    <div style={{ height: "auto", marginBottom: 60 , }}>
+    <div style={{ height: "auto", marginBottom: 60 }}>
       <div
         style={{
           display: "flex",
@@ -60,7 +72,7 @@ const Dashboard = () => {
             paddingTop: 10,
             borderRadius: 10,
             width: "70%",
-            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
         >
           <p
@@ -92,7 +104,7 @@ const Dashboard = () => {
             paddingTop: 10,
             backgroundColor: "#f2f2f2",
             borderRadius: 20,
-            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
         >
           <div
@@ -140,7 +152,7 @@ const Dashboard = () => {
             borderRadius: 10,
             width: "30%",
             marginTop: 10,
-            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
         >
           <p
@@ -158,7 +170,7 @@ const Dashboard = () => {
 
       {allItems.map((val) => {
         return (
-          <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
             <div
               className="card"
               style={{
@@ -168,7 +180,7 @@ const Dashboard = () => {
                 borderRadius: 20,
                 margin: 20,
                 marginLeft: 40,
-            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+                boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
               }}
             >
               <div>
@@ -283,11 +295,11 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center",  }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                   <button
                     className="btn btn-primary"
                     style={{
-            boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px'
+                      boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
                     }}
                     onClick={(e) => addCarts(e, val)}
                   >

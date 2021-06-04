@@ -33,6 +33,7 @@ const SignUp = () => {
     try {
       setIsLoading(true)
       await firebase.auth()?.createUserWithEmailAndPassword(email, password);
+      firebase.auth().signOut()
       let uid = firebase.auth()?.currentUser?.uid;
       firebase.database().ref(`/newUser/${uid}`).set({
         firstName: firstName,
@@ -40,10 +41,9 @@ const SignUp = () => {
         email: email,
         password: password,
       });
-      
       setShow(true);
       setIsLoading(false)
-      //  history.push('/login')
+       history.push('/login')
     } catch (err) {
       console.log(err);
       setIsLoading(false)

@@ -68,6 +68,8 @@ const ShowCarts = () => {
       let description = items.description;
       let status = "Not delivered"
       let uid = firebase.auth()?.currentUser?.uid
+      let orderDate = new Date();
+      let abc = orderDate.toISOString().split('t')[0];
       if(samData.productTitile === productTitile && samData.productValue === productValue && samData.totalPrice === totalPrice && samData.yourLocation === yourLocation && samData.description === description && samData.productCondition === productCondition && samData.productImage === productImage && samData.productPrice === productPrice){
           null
       }else{
@@ -80,10 +82,11 @@ const ShowCarts = () => {
           productImage: productImage,
           productCondition: productCondition,
           status: status,
+          orderDate: abc,
           description: description,
         })
       }
-      if(dataLength < 0){
+      if(dataLength === 0){
         history.push('/checkoutform')
       }else{
         history.push('/yourorders')
