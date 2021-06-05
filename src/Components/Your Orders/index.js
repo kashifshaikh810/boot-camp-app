@@ -376,7 +376,7 @@ const YourOrders = () => {
             <div
               className="card"
               style={{
-                width: "40%",
+                width: "35%",
                 height: "107vh",
                 backgroundColor: "#f2f2f2",
                 borderRadius: 20,
@@ -480,7 +480,7 @@ const YourOrders = () => {
                         fontWeight: "bold",
                         fontSize: 20,
                         fontStyle: "revert",
-                        width: "25%",
+                        width: "22%",
                       }}
                     >
                       Description :
@@ -521,13 +521,6 @@ const YourOrders = () => {
                       </div>
 
                     <div style={{display: 'flex', justifyContent: 'space-evenly', marginRight: 40}}>
-                    {/* <div className="d-grid gap-2" >
-                    <button style={{borderRadius: 12,}} className="btn btn-success" type="button">
-                    <Icon.Briefcase style={{marginRight: 10}} />
-                        Proceed to Check Out
-                        </button>
-                    </div> */}
-
                     <div className="d-grid gap-2" onClick={(e) => handleCancelOrder(e, index)}>
                     <button style={{borderRadius: 12,}} className="btn btn-danger">
                         <Icon.X size={30} style={{marginBottom: 1}}/>

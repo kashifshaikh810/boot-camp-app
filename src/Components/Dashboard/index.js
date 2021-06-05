@@ -56,7 +56,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div style={{ height: "auto", marginBottom: 60 }}>
+    <div style={{ height: "auto", marginBottom: 60, overflow: 'scroll' }}>
       <div
         style={{
           display: "flex",
