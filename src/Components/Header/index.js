@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 const Header = () => {
   let history = useHistory();
   const [uid, setUid] = useState('')
+  const [msgLength, setMsgLength] = useState('')
   const [allItems, setAllItems] = useState([]);
 
   const goHome = () => {
@@ -67,8 +68,23 @@ const Header = () => {
             let data = snapshot.val() ? Object.values(snapshot.val()) : [];
             setAllItems(data);
           });
+
+          firebase
+          .database()
+          .ref(`/contactUs/`)
+          .on("value", (snapshot) => {
+            let data = snapshot.val() ? Object.values(snapshot.val()) : [];
+            let ka = []
+            data.forEach((item) => {
+             let as = Object.keys(item)
+             as.forEach((val) => {
+              ka.push(val)
+              setMsgLength(ka.length);
+            })
+            })
+          });
       });
-    },[uid])
+    },[])
 
 
   return (
@@ -177,7 +193,10 @@ const Header = () => {
                   paddingTop: 20,
                 }}
               >
-                Message
+               {uid ? msgLength != 0 ? <> <div style={{position: 'absolute', left: '45.5%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
+                <p style={{color: '#f1f1f1', textAlign: 'center', paddingTop: 2}}>{msgLength}</p>
+                </div> </> : null : null}
+                Messages
               </span>
             </li>
 

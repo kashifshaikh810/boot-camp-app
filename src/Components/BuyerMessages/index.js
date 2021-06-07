@@ -1,25 +1,56 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 
 const Messages = () => {
   const [getData, setGetData] = useState([]);
+  const [key, setKey] = useState("");
+  const [pushKey, setPushKey] = useState("");
+  const [uid, setUid] = useState('')
+
+  const deleteCard = (e, i) => {
+    e.preventDefault();
+    firebase.database().ref(`/contactUs/${key}/${pushKey[i]}/`).remove();
+    alert('Removed Successfully...')
+  };
 
   useEffect(() => {
     firebase
       .database()
-      .ref("contactUs")
+      .ref('contactUs')
       .on("value", (snapshot) => {
         let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
-        snap.forEach((items) => {
+        let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
+        let d = [...key];
+        d.forEach((aa) => {
+          setKey(aa);
+        });
+        let newData = [];
+        let allKey = [];
+        snap.forEach((items, index) => {
           let data = Object.values(items);
-          setGetData(data);
+          let keys = Object.keys(items);
+          let key = [...keys];
+          key.forEach((k) => {
+            allKey.push(k);
+            setPushKey(allKey);
+          });
+          data.forEach((val) => {
+            newData.push(val);
+          });
+          setGetData(newData);
         });
       });
+      firebase.auth().onAuthStateChanged((user) => {
+        let uid = user?.uid;
+        setUid(uid);
+      })
+
   }, []);
 
   return (
-    <div style={{ height: "83vh", overflow: 'scroll' }}>
+    <div style={{ height: "83vh", overflow: "scroll" }}>
       <div
         style={{
           display: "flex",
@@ -51,9 +82,9 @@ const Messages = () => {
         </div>
       </div>
 
-      {getData.map((val) => {
+      {uid ? getData.length != 0 ? getData.map((val, index) => {
         return (
-          <div style={{ display: "flex", justifyContent: "center", }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               className="card"
               style={{
@@ -61,35 +92,34 @@ const Messages = () => {
                 backgroundColor: "#f2f2f2",
                 margin: 20,
                 padding: 10,
+                boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
               }}
             >
               <p>First Name : {val.firstName}</p>
-              <p>Last Name : {val.lastName }</p>
+              <p>Last Name : {val.lastName}</p>
               <p>Email : {val.email}</p>
               <p>Message : {val.yourMessage}</p>
 
-              <div style={{display: 'flex', justifyContent: 'space-around', }}>
-            <button
-                    className="btn btn-success"
-                    style={{
-                    }}
-                    >
-                    Reply
-                  </button>
+              <div style={{ display: "flex", justifyContent: "space-around" }}>
+                <button className="btn btn-success" style={{}}>
+                  Reply
+                </button>
 
-                  <button
-                    className="btn btn-danger"
-                    style={{
-                    }}
-                    >
-                    Delete
-                  </button>
+                <button
+                  onClick={(e) => deleteCard(e, index)}
+                  className="btn btn-danger"
+                  style={{}}
+                >
+                  Delete
+                </button>
               </div>
             </div>
-            </div>
+          </div>
         );
-      })}
-                      {/* boxShadow: "rgb(179 179 179) 0px 1px 20px 0px", */}
+      })
+    : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh'}}> <p style={{fontSize: 30, fontStyle: 'revert', fontWeight: 'bold'}}>No Buyer's Messages</p> </div>
+    : null
+  }
 
       <div
         style={{
@@ -100,7 +130,12 @@ const Messages = () => {
       >
         <div
           className="card"
-          style={{ width: "62%", height: "50vh", backgroundColor: "#f3f3f3" }}
+          style={{
+            width: "62%",
+            height: "50vh",
+            backgroundColor: "#f3f3f3",
+            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
+          }}
         >
           <div
             style={{
