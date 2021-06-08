@@ -8,6 +8,7 @@ const Dashboard = () => {
   const [allItems, setAllItems] = useState([]);
   let history = useHistory();
   const [uid, setUid] = useState("");
+  const [role, setRole] = useState("");
 
   const addCarts = (e, items) => {
     e.preventDefault();
@@ -51,6 +52,8 @@ const Dashboard = () => {
 
     firebase.auth().onAuthStateChanged((user) => {
       let uid = user?.uid;
+      let use = user ? user : '';
+      setRole(use.email);
       setUid(uid);
     });
   }, []);
@@ -295,7 +298,7 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+               {role !== 'admin@gmail.com' ? <div style={{ display: "flex", justifyContent: "center" }}>
                   <button
                     className="btn btn-primary"
                     style={{
@@ -312,8 +315,25 @@ const Dashboard = () => {
                         fontSize: 25,
                       }}
                     />
-                  </button>
-                </div>
+                  </button> 
+                </div> : null}
+
+                {role === 'admin@gmail.com' ? <div style={{ display: "flex", justifyContent: "center" }}>
+                  <button
+                    className="btn btn-danger"
+                    // onClick={(e) => addCarts(e, val)}
+                  >
+                    Remove Cart
+                    <Icon.CartX
+                      style={{
+                        marginBottom: 5,
+                        padding: 0,
+                        marginLeft: 10,
+                        fontSize: 25,
+                      }}
+                    />
+                  </button> 
+                </div> : null}
               </div>
             </div>
           </div>

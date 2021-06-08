@@ -11,6 +11,7 @@ const Header = () => {
   const [uid, setUid] = useState('')
   const [msgLength, setMsgLength] = useState('')
   const [allItems, setAllItems] = useState([]);
+  const [currUser, setCurrUser] = useState('')
 
   const goHome = () => {
     history.push("/");
@@ -83,7 +84,15 @@ const Header = () => {
             })
             })
           });
+                firebase
+                .database()
+                .ref(`/newUser/${uid}`)
+                .on("value", (snapshot) => {
+                  let data = snapshot.val() ? snapshot.val() : [];
+                  setCurrUser(data)
+                });
       });
+
     },[])
 
 
@@ -179,7 +188,7 @@ const Header = () => {
                   paddingTop: 20,
                 }}
               >
-                Orders
+               Buyer Orders
               </span>
             </li>
 
@@ -193,7 +202,7 @@ const Header = () => {
                   paddingTop: 20,
                 }}
               >
-               {uid ? msgLength != 0 ? <> <div style={{position: 'absolute', left: '45.5%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
+               {uid ? msgLength != 0 ? <> <div style={{position: 'absolute', left: '47%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
                 <p style={{color: '#f1f1f1', textAlign: 'center', paddingTop: 2}}>{msgLength}</p>
                 </div> </> : null : null}
                 Messages
@@ -214,6 +223,12 @@ const Header = () => {
               </span>
             </li>
           </ul>
+
+         { uid ? <div className="nav-item">
+              <span 
+                className="nav-link"
+                style={{fontSize: 20, color: '#f3f3f3'}}><b style={{color: 'black', marginRight: 5}}> Hello Dear, </b>  {currUser.firstName}</span>
+            </div> : null }
 
           <div className="nav-item" onClick={goShowCarts}>
           <span

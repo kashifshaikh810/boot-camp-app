@@ -119,10 +119,14 @@ const YourOrders = () => {
         setCartNo('')
     }
 
-    const handleCancelOrder = (e, i) => {
+    const handleCancelOrder = (e, item, i) => {
       e.preventDefault()
       let uid = firebase.auth()?.currentUser?.uid;
-      firebase.database().ref(`/buyCart/${uid}/${keys[i]}`).remove()
+      if(item.status === 'delivered'){
+        alert('Sorry Sir... This order is Not Cancel Because... Admin delivered your Order')
+      }else{
+        firebase.database().ref(`/buyCart/${uid}/${keys[i]}`).remove()
+      }
     }
 
   useEffect(() => {
@@ -521,7 +525,7 @@ const YourOrders = () => {
                       </div>
 
                     <div style={{display: 'flex', justifyContent: 'space-evenly', marginRight: 40}}>
-                    <div className="d-grid gap-2" onClick={(e) => handleCancelOrder(e, index)}>
+                    <div className="d-grid gap-2" onClick={(e) => handleCancelOrder(e, item, index)}>
                     <button style={{borderRadius: 12,}} className="btn btn-danger">
                         <Icon.X size={30} style={{marginBottom: 1}}/>
                         Cancel Order

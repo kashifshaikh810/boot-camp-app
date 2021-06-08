@@ -11,11 +11,13 @@ const Messages = () => {
 
   const deleteCard = (e, i) => {
     e.preventDefault();
+    setGetData('')
     firebase.database().ref(`/contactUs/${key}/${pushKey[i]}/`).remove();
     alert('Removed Successfully...')
+    giveData()
   };
 
-  useEffect(() => {
+  const giveData = () => {
     firebase
       .database()
       .ref('contactUs')
@@ -42,11 +44,14 @@ const Messages = () => {
           setGetData(newData);
         });
       });
+  }
+
+  useEffect(() => {
+    giveData()
       firebase.auth().onAuthStateChanged((user) => {
         let uid = user?.uid;
         setUid(uid);
       })
-
   }, []);
 
   return (

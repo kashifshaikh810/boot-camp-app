@@ -33,7 +33,7 @@ const Routing = () => {
   return (
     <>
       {isLoading ? (
-      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: isLoading ? 'progress' : 'default'}}>
         <div class="spinner-border text-success" style={{width: '4rem', height: '4rem'}} role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
