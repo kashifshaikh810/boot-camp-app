@@ -8,6 +8,9 @@ const Dashboard = () => {
   const [allItems, setAllItems] = useState([]);
   let history = useHistory();
   const [uid, setUid] = useState("");
+  const [pushKey, setPushKey] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [didMount, setDidMount] = useState(false); 
   const [role, setRole] = useState("");
 
   const addCarts = (e, items) => {
@@ -38,7 +41,14 @@ const Dashboard = () => {
     }
   };
 
+  const removeCart = (e, i) => {
+    e.preventDefault();
+    firebase.database().ref(`/addItems/${uid}/${pushKey[i]}`).remove()
+    alert('Deleted Successfully...')
+  }
+
   useEffect(() => {
+    setDidMount(true)
     firebase
       .database()
       .ref(`/addItems/`)
@@ -46,6 +56,8 @@ const Dashboard = () => {
         let data = snapshot.val() ? Object.values(snapshot.val()) : [];
         data.forEach((item) => {
           let newData = Object.values(item);
+          let pushKey = Object.keys(item);
+          setPushKey(pushKey);
           setAllItems(newData);
         });
       });
@@ -56,6 +68,7 @@ const Dashboard = () => {
       setRole(use.email);
       setUid(uid);
     });
+    return () => setDidMount(false);
   }, []);
 
   return (
@@ -166,14 +179,14 @@ const Dashboard = () => {
               fontStyle: "revert",
             }}
           >
-            Available Items You Can Buy Now
+           { role === 'admin@gmail.com' ?  "See Your Items You Can Sell Now" : "Available Items You Can Buy Now"}
           </p>
         </div>
       </div>
 
-      {allItems.map((val) => {
+      {allItems.map((val, index) => {
         return (
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div key={index} style={{ display: "flex", flexDirection: "row" }}>
             <div
               className="card"
               style={{
@@ -298,7 +311,7 @@ const Dashboard = () => {
                     </p>
                   </div>
                 </div>
-               {role !== 'admin@gmail.com' ? <div style={{ display: "flex", justifyContent: "center" }}>
+               {role === 'admin@gmail.com' ? null : <div style={{ display: "flex", justifyContent: "center" }}>
                   <button
                     className="btn btn-primary"
                     style={{
@@ -316,12 +329,12 @@ const Dashboard = () => {
                       }}
                     />
                   </button> 
-                </div> : null}
+                </div>}
 
                 {role === 'admin@gmail.com' ? <div style={{ display: "flex", justifyContent: "center" }}>
                   <button
                     className="btn btn-danger"
-                    // onClick={(e) => addCarts(e, val)}
+                    onClick={(e) => removeCart(e, index)}
                   >
                     Remove Cart
                     <Icon.CartX

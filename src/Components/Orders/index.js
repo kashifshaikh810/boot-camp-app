@@ -6,6 +6,8 @@ import * as Icon from "react-bootstrap-icons";
 
 const BuyerOrders = () => {
   const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [didMount, setDidMount] = useState(false); 
   const [buyCartData, setBuyCartData] = useState([]);
   const [keys, setKeys] = useState("");
   const [pushKeys, setPushKeys] = useState("");
@@ -20,14 +22,19 @@ const BuyerOrders = () => {
     alert("delivered Successfully...");
   };
 
-  const handleRemoveOrder = (e, i) => {
+  const handleRemoveOrder = (e, item, i) => {
     e.preventDefault();
-    firebase.database().ref(`/buyCart/${keys[i]}/${pushKeys[i]}`).remove();
-    alert("Cart Removed...");
+    let status = item.status;
+    if(status === 'delivered'){
+      alert('Sorry Sir, You Are Not Cancel, This Order because Order is delivered...')
+    }else{
+      firebase.database().ref(`/buyCart/${keys[i]}/${pushKeys[i]}`).remove();
+      alert("Cart Removed...");
+      cartData();
+    }
   };
 
-  useEffect(() => {
-    setIsLoading(true);
+  const cartData = () => {
     firebase
       .database()
       .ref(`/buyCart/`)
@@ -55,6 +62,13 @@ const BuyerOrders = () => {
           });
         });
       });
+  };
+
+  useEffect(() => {
+    setDidMount(true)
+    setIsLoading(true);
+    cartData();
+    return () => setDidMount(false);
   }, []);
 
   return (
@@ -91,291 +105,290 @@ const BuyerOrders = () => {
         </div>
       </div>
 
-      {buyCartData.length > 0 ? (
+      {buyCartData.length === 0 ? (
         isLoading ? (
+          <p style={{ textAlign: "center", fontSize: 30, fontWeight: "bold" }}>
+            No Carts Added
+          </p>
+        ) : null
+      ) : isLoading ? (
+        <div
+          style={{
+            height: "83vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div
-            style={{
-              height: "83vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            className="spinner-border text-success"
+            style={{ width: "4rem", height: "4rem" }}
+            role="status"
           >
-            <div
-              className="spinner-border text-success"
-              style={{ width: "4rem", height: "4rem" }}
-              role="status"
-            >
-              <span className="visually-hidden">Loading...</span>
-            </div>
+            <span className="visually-hidden">Loading...</span>
           </div>
-        ) : (
-          <div style={{ height: "300vh" }}>
-            {buyCartData.map((item, index) => {
-              return (
-                <div style={{ flexWrap: "wrap" }}>
-                  <div
-                    className="card"
-                    style={{
-                      width: "35%",
-                      height: "107vh",
-                      backgroundColor: "#f2f2f2",
-                      borderRadius: 20,
-                      margin: 20,
-                      marginLeft: 40,
-                      boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={item.productImage}
-                        style={{
-                          width: "100%",
-                          height: "45vh",
-                          borderRadius: 20,
-                        }}
-                      />
-                      <div style={{ marginTop: 20 }}>
-                        <div style={{ display: "flex", marginLeft: 10 }}>
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            Product Titile :
-                          </p>
-                          <p
-                            style={{
-                              marginLeft: 5,
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            {item.productTitile}
-                          </p>
-                        </div>
-                        <div style={{ display: "flex", marginLeft: 10 }}>
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            Product Price :
-                          </p>
-                          <p
-                            style={{
-                              marginLeft: 5,
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            ${item.productPrice}
-                          </p>
-                        </div>
-
-                        <div style={{ display: "flex", marginLeft: 10 }}>
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            Location :
-                          </p>
-                          <p
-                            style={{
-                              marginLeft: 5,
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            {item.yourLocation}
-                          </p>
-                        </div>
-
-                        <div style={{ display: "flex", marginLeft: 10 }}>
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            Product Condition :
-                          </p>
-                          <p
-                            style={{
-                              marginLeft: 5,
-                              fontSize: 20,
-                              fontStyle: "revert",
-                            }}
-                          >
-                            {item.productCondition}
-                          </p>
-                        </div>
-
-                        <div style={{ display: "flex", marginLeft: 10 }}>
-                          <p
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: 20,
-                              fontStyle: "revert",
-                              width: "22%",
-                            }}
-                          >
-                            Description :
-                          </p>
-                          <p
-                            style={{
-                              marginLeft: 5,
-                              fontSize: 20,
-                              fontStyle: "revert",
-                              width: "60%",
-                            }}
-                          >
-                            {item.description}
-                          </p>
-                        </div>
-                      </div>
-                      <div></div>
-                      <div style={{ display: "flex" }}>
+        </div>
+      ) : (
+        <div style={{ height: "300vh" }}>
+          {buyCartData.map((item, index) => {
+            return (
+              <div key={index} style={{ flexWrap: "wrap" }}>
+                <div
+                  className="card"
+                  style={{
+                    width: "35%",
+                    height: "107vh",
+                    backgroundColor: "#f2f2f2",
+                    borderRadius: 20,
+                    margin: 20,
+                    marginLeft: 40,
+                    boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
+                  }}
+                >
+                  <div>
+                    <img
+                      src={item.productImage}
+                      style={{
+                        width: "100%",
+                        height: "45vh",
+                        borderRadius: 20,
+                      }}
+                    />
+                    <div style={{ marginTop: 20 }}>
+                      <div style={{ display: "flex", marginLeft: 10 }}>
                         <p
                           style={{
-                            marginLeft: 10,
-                            fontSize: 35,
                             fontWeight: "bold",
+                            fontSize: 20,
+                            fontStyle: "revert",
                           }}
                         >
-                          Product Quantity :{" "}
+                          Product Titile :
                         </p>
-
-                        <div
+                        <p
                           style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginBottom: 15,
+                            marginLeft: 5,
+                            fontSize: 20,
+                            fontStyle: "revert",
                           }}
                         >
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginLeft: 15,
-                              backgroundColor: "#f36e36",
-                              width: 40,
-                              height: 40,
-                              borderRadius: 40,
-                            }}
-                          >
-                            <span
-                              style={{
-                                fontSize: 30,
-                                fontStyle: "revert",
-                                color: "#f1f1f1",
-                              }}
-                            >
-                              {item.productValue}
-                            </span>
-                          </div>
-                        </div>
+                          {item.productTitile}
+                        </p>
                       </div>
+                      <div style={{ display: "flex", marginLeft: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            fontStyle: "revert",
+                          }}
+                        >
+                          Product Price :
+                        </p>
+                        <p
+                          style={{
+                            marginLeft: 5,
+                            fontSize: 20,
+                            fontStyle: "revert",
+                          }}
+                        >
+                          ${item.productPrice}
+                        </p>
+                      </div>
+
+                      <div style={{ display: "flex", marginLeft: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            fontStyle: "revert",
+                          }}
+                        >
+                          Location :
+                        </p>
+                        <p
+                          style={{
+                            marginLeft: 5,
+                            fontSize: 20,
+                            fontStyle: "revert",
+                          }}
+                        >
+                          {item.yourLocation}
+                        </p>
+                      </div>
+
+                      <div style={{ display: "flex", marginLeft: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            fontStyle: "revert",
+                          }}
+                        >
+                          Product Condition :
+                        </p>
+                        <p
+                          style={{
+                            marginLeft: 5,
+                            fontSize: 20,
+                            fontStyle: "revert",
+                          }}
+                        >
+                          {item.productCondition}
+                        </p>
+                      </div>
+
+                      <div style={{ display: "flex", marginLeft: 10 }}>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            fontStyle: "revert",
+                            width: "22%",
+                          }}
+                        >
+                          Description :
+                        </p>
+                        <p
+                          style={{
+                            marginLeft: 5,
+                            fontSize: 20,
+                            fontStyle: "revert",
+                            width: "60%",
+                          }}
+                        >
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div></div>
+                    <div style={{ display: "flex" }}>
+                      <p
+                        style={{
+                          marginLeft: 10,
+                          fontSize: 35,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Product Quantity :
+                      </p>
+
                       <div
                         style={{
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          marginBottom: 10,
+                          marginBottom: 15,
                         }}
                       >
                         <div
                           style={{
-                            backgroundColor: "#b3b3b3",
-                            width: "85%",
-                            height: 50,
-                            borderRadius: 30,
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
+                            marginLeft: 15,
+                            backgroundColor: "#f36e36",
+                            width: 40,
+                            height: 40,
+                            borderRadius: 40,
                           }}
                         >
-                          <p
+                          <span
                             style={{
-                              marginLeft: 15,
-                              fontSize: 25,
-                              paddingTop: 10,
+                              fontSize: 30,
+                              fontStyle: "revert",
+                              color: "#f1f1f1",
                             }}
                           >
-                            <b style={{ color: "#f3f3f3" }}>Total Amount :</b>{" "}
-                            <span style={{ color: "blue" }}>
-                              ${item.totalPrice}
-                            </span>{" "}
-                          </p>
+                            {item.productValue}
+                          </span>
                         </div>
                       </div>
-
-                      <div style={{ display: "flex", fontSize: 25 }}>
-                        <b style={{ marginLeft: 10, marginRight: 5 }}>Status</b>
-                        : <p style={{ marginLeft: 5 }}>{item.status}</p>
-                      </div>
-
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: 10,
+                      }}
+                    >
                       <div
                         style={{
+                          backgroundColor: "#b3b3b3",
+                          width: "85%",
+                          height: 50,
+                          borderRadius: 30,
                           display: "flex",
-                          justifyContent: "space-evenly",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                       >
-                        <button
+                        <p
                           style={{
-                            borderRadius: 12,
-                            width: "40%",
-                            cursor:
-                              item.status === "delivered"
-                                ? "not-allowed"
-                                : "pointer",
+                            marginLeft: 15,
+                            fontSize: 25,
+                            paddingTop: 10,
                           }}
-                          className="btn btn-success"
-                          disabled={item.status === "delivered"}
-                          onClick={(e) => handleDelivered(e, index)}
                         >
-                          <Icon.CartCheck
-                            size={25}
-                            style={{ marginBottom: 5, marginRight: 7 }}
-                          />
-                          {item.status === "delivered"
-                            ? "delivered Success"
-                            : "Delivered"}
-                        </button>
-
-                        <button
-                          style={{ borderRadius: 12 }}
-                          className="btn btn-danger"
-                          onClick={(e) => handleRemoveOrder(e, index)}
-                        >
-                          <Icon.X
-                            size={30}
-                            style={{ marginBottom: 1, width: 40 }}
-                          />
-                          Remove Order
-                        </button>
+                          <b style={{ color: "#f3f3f3" }}>Total Amount : </b>
+                          <span style={{ color: "blue" }}>
+                            ${item.totalPrice}
+                          </span>
+                        </p>
                       </div>
+                    </div>
+
+                    <div style={{ display: "flex", fontSize: 25 }}>
+                      <b style={{ marginLeft: 10, marginRight: 5 }}>Status</b>:
+                      <p style={{ marginLeft: 5 }}>{item.status}</p>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <button
+                        style={{
+                          borderRadius: 12,
+                          width: "40%",
+                          cursor:
+                            item.status === "delivered" && "not-allowed"
+                              
+                        }}
+                        className="btn btn-success"
+                        disabled={item.status === "delivered"}
+                        onClick={(e) => handleDelivered(e, index)}
+                      >
+                        <Icon.CartCheck
+                          size={25}
+                          style={{ marginBottom: 5, marginRight: 7 }}
+                        />
+                        {item.status === "delivered"
+                          ? "delivered Success"
+                          : "Delivered"}
+                      </button>
+
+                      <button
+                        style={{ borderRadius: 12 }}
+                        className="btn btn-danger"
+                        onClick={(e) => handleRemoveOrder(e, item, index)}
+                      >
+                        <Icon.X
+                          size={30}
+                          style={{ marginBottom: 1, width: 40 }}
+                        />
+                        Cancel Order
+                      </button>
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )
-      ) : isLoading ? null : (
-        <p style={{ textAlign: "center", fontSize: 30, fontWeight: "bold" }}>
-          No Carts Added
-        </p>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );

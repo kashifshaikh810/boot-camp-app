@@ -8,6 +8,8 @@ const Messages = () => {
   const [key, setKey] = useState("");
   const [pushKey, setPushKey] = useState("");
   const [uid, setUid] = useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [didMount, setDidMount] = useState(false); 
 
   const deleteCard = (e, i) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ const Messages = () => {
         });
         let newData = [];
         let allKey = [];
-        snap.forEach((items, index) => {
+        snap.forEach((items) => {
           let data = Object.values(items);
           let keys = Object.keys(items);
           let key = [...keys];
@@ -47,11 +49,13 @@ const Messages = () => {
   }
 
   useEffect(() => {
+    setDidMount(true)
     giveData()
       firebase.auth().onAuthStateChanged((user) => {
         let uid = user?.uid;
         setUid(uid);
       })
+    return () => setDidMount(false);
   }, []);
 
   return (

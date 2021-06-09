@@ -17,6 +17,8 @@ const YourOrders = () => {
   const [showCart, setShowCart] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [buyCartData, setBuyCartData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [didMount, setDidMount] = useState(false); 
   const [keys, setKeys] = useState('');
 
     const handleUpdateFirstName = (e) => {
@@ -130,6 +132,7 @@ const YourOrders = () => {
     }
 
   useEffect(() => {
+    setDidMount(true)
     setIsLoading(true)
     let uid = firebase.auth()?.currentUser?.uid;
     firebase
@@ -150,6 +153,7 @@ const YourOrders = () => {
         setBuyCartData(snap);
         setIsLoading(false)
       });
+    return () => setDidMount(false);
   }, []);
 
   return (
@@ -186,7 +190,7 @@ const YourOrders = () => {
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    { buyCartData.length < 0 ? <div style={{ display: "flex", justifyContent: "center" }}>
         <div
           className="card"
           style={{
@@ -363,7 +367,7 @@ const YourOrders = () => {
           </div>
           
         </div>
-      </div>
+      </div> : null}
 
       {buyCartData.length > 0 ? isLoading ? 
       <div style={{height: '83vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -539,7 +543,7 @@ const YourOrders = () => {
         );
       })}
     </div>
-    : isLoading ?  null : <p style={{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>No Carts Added</p> }
+    : isLoading ?  null :  <p style={{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>No Order Here</p> }
 
 
     </div>

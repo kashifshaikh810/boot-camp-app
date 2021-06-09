@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 const Header = () => {
   let history = useHistory();
   const [uid, setUid] = useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [didMount, setDidMount] = useState(false); 
   const [msgLength, setMsgLength] = useState('')
   const [allItems, setAllItems] = useState([]);
   const [currUser, setCurrUser] = useState('')
@@ -59,6 +61,7 @@ const Header = () => {
   }
 
     useEffect(() => {
+      setDidMount(true)
       firebase.auth().onAuthStateChanged((user) => {
         let uid = user?.uid;
         setUid(uid);
@@ -92,9 +95,8 @@ const Header = () => {
                   setCurrUser(data)
                 });
       });
-
+    return () => setDidMount(false);
     },[])
-
 
   return (
     <h1>
@@ -202,9 +204,9 @@ const Header = () => {
                   paddingTop: 20,
                 }}
               >
-               {uid ? msgLength != 0 ? <> <div style={{position: 'absolute', left: '47%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
+               {uid ? msgLength === '' ? null :  <div style={{position: 'absolute', left: '47%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
                 <p style={{color: '#f1f1f1', textAlign: 'center', paddingTop: 2}}>{msgLength}</p>
-                </div> </> : null : null}
+                </div> : null}
                 Messages
               </span>
             </li>

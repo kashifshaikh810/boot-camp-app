@@ -57,6 +57,7 @@ const ContactUs = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: 100
       }}
     >
       <div
@@ -169,9 +170,9 @@ const ContactUs = () => {
             <p style={{ margin: 0, padding: 0, paddingBottom: 8 }}>
               Your Message
             </p>
-            <div class="form-floating">
+            <div className="form-floating">
               <textarea
-                class="form-control"
+                className="form-control"
                 placeholder="Leave a comment here"
                 value={yourMessage}
                 required
@@ -179,7 +180,7 @@ const ContactUs = () => {
                 id="floatingTextarea2"
                 style={{ height: 100 }}
               ></textarea>
-              <label for="floatingTextarea2">Your Message</label>
+              <label htmlFor="floatingTextarea2">Your Message</label>
             </div>
 
             <div>
@@ -194,7 +195,7 @@ const ContactUs = () => {
                 marginTop: 10,
               }}
             >
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
