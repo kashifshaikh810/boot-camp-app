@@ -8,6 +8,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [yourMessage, setYourMessage] = useState("");
   const [err, setErr] = useState("");
+  const [getData, setGetData] = useState([]);
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -51,7 +52,20 @@ const ContactUs = () => {
     }
   };
 
+  useEffect(() => {
+    let uid = firebase.auth()?.currentUser?.uid;
+      firebase
+        .database()
+        .ref(`/contactUs/${uid}`)
+        .on("value", (snapshot) => {
+          let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
+          // let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
+            setGetData(snap);
+        });
+  },[])
+
   return (
+    <>
     <div
       style={{
         display: "flex",
@@ -184,7 +198,7 @@ const ContactUs = () => {
             </div>
 
             <div>
-              <p style={{ marginTop: 10, color: "red" }}>{err}</p>
+              <p style={{ marginTop: 10, color: "red", textAlign: 'center' }}>{err}</p>
             </div>
 
             <div
@@ -203,6 +217,22 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
+            <div className="card" style={{height: '30vh', width: '50%', 
+          boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
+        }}>{
+              getData.map((data) => {
+                return (
+                  <div>
+                    <div><p>First Name : {data.firstName}</p></div>
+                    <div><p>Last Name : {data.lastName}</p></div>
+                    <div><p>Email : {data.email}</p></div>
+                    <div><p>Your Message : {data.yourMessage}</p></div>
+                    {/* <div><p>{data.}</p></div> */}
+                  </div>
+                )
+              })
+            }</div>
+    </>
   );
 };
 

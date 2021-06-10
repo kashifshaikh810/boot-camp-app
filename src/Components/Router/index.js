@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import Login from "../Authentication/Login";
 import Signup from "../Authentication/Signup";
 import Dashboard from "../Dashboard/index";
@@ -17,12 +22,15 @@ import firebase from "firebase/app";
 
 const Routing = () => {
   const [uid, setUid] = useState("");
+  const [currUser, setCurrUser] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     firebase.auth().onAuthStateChanged((user) => {
       let uid = user?.uid;
+      let use = user?.email;
+      setCurrUser(use);
       setUid(uid);
       setTimeout(() => {
         setIsLoading(false);
@@ -33,31 +41,57 @@ const Routing = () => {
   return (
     <>
       {isLoading ? (
-      <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: isLoading ? 'progress' : 'default'}}>
-        <div className="spinner-border text-success" style={{width: '4rem', height: '4rem'}} role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: isLoading ? "progress" : "default",
+          }}
+        >
+          <div
+            className="spinner-border text-success"
+            style={{ width: "4rem", height: "4rem" }}
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
       ) : (
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={Dashboard} />
-            {uid === undefined ? (
-              <Route path="/login" component={Login} />
-            ) : null}
-            {uid === undefined ? (
-              <Route path="/signup" component={Signup} />
-            ) : null}
             <Route path="/aboutus" component={AboutUs} />
-            <Route path="/additems" component={AddItems} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/contactus" component={ContactUs} />
-            <Route path="/message" component={Message} />
-            <Route path="/showcarts" component={ShowCarts} />
-            <Route path="/checkoutform" component={CheckOutForm} />
-            <Route path="/yourorders" component={YourOrders} />
+            <Route exact path="/" component={Dashboard} />
           </Switch>
+          {uid === undefined ? (
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+            </Switch>
+          ) : (
+            <Redirect to="/" />
+          )}
+          {currUser === "admin@gmail.com" && !uid ? (
+            <Redirect to="/" />
+          ) : (
+            <Switch>
+              <Route path="/contactus" component={ContactUs} />
+              <Route path="/yourorders" component={YourOrders} />
+              <Route path="/checkoutform" component={CheckOutForm} />
+              <Route path="/showcarts" component={ShowCarts} />
+            </Switch>
+          )}
+          {currUser === "admin@gmail.com" && uid ? (
+            <Switch>
+              <Route path="/additems" component={AddItems} />
+              <Route path="/orders" component={Orders} />
+              <Route path="/message" component={Message} />
+            </Switch>
+          ) : (
+            <Redirect to="/" />
+          )}
           <Footer />
         </Router>
       )}

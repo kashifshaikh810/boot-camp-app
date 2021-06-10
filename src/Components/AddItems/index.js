@@ -17,26 +17,31 @@ const AddItems = () => {
   const proTitile = (e) => {
     setProductTitile(e.target.value);
     setErr(false)
+    setShow(false)
   }
 
   const proPrice = (e) => {
     setProductPrice(e.target.value);
     setErr(false)
+    setShow(false)
   }
 
   const proCondition = (e) => {
     setProductCondition(e.target.value);
     setErr(false)
+    setShow(false)
   }
 
   const location = (e) => {
     setYourLocation(e.target.value);
     setErr(false)
+    setShow(false)
   }
 
   const descrip = (e) => {
     setDescription(e.target.value);
     setErr(false)
+    setShow(false)
   }
 
   const proImage = async (e) => {
@@ -62,7 +67,8 @@ const AddItems = () => {
     setDescription('')
     setErr(false)
     setShow(false)
-  },[])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[window.location.pathname])
 
   const submitHandler = (e) => {
     e.preventDefault()

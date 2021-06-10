@@ -98,7 +98,7 @@ const Header = () => {
     return () => setDidMount(false);
     },[])
 
-  return (
+    return (
     <h1>
       <div className="navbar">
         <div className="container-fluid">
@@ -152,7 +152,7 @@ const Header = () => {
               </span>
             </li> : null}
 
-            <li className="nav-item" onClick={goAddItems}>
+           {currUser.email === 'admin@gmail.com' ? <li className="nav-item" onClick={goAddItems}>
               <span
                 className="nav-link"
                 style={{
@@ -164,9 +164,9 @@ const Header = () => {
               >
                 Add Items
               </span>
-            </li>
+            </li> : null}
 
-            <li className="nav-item" onClick={goContactus}>
+           { uid ? currUser.email === 'admin@gmail.com' ?  null : <li className="nav-item" onClick={goContactus}>
               <span
                 className="nav-link"
                 style={{
@@ -178,9 +178,9 @@ const Header = () => {
               >
                 Contact Us
               </span>
-            </li>
+            </li> : null}
 
-            <li className="nav-item" onClick={goOrders}>
+           {currUser.email === 'admin@gmail.com' ? <li className="nav-item" onClick={goOrders}>
               <span
                 className="nav-link"
                 style={{
@@ -192,9 +192,9 @@ const Header = () => {
               >
                Buyer Orders
               </span>
-            </li>
+            </li> : null }
 
-            <li className="nav-item" onClick={goMessage}>
+          { currUser.email === 'admin@gmail.com' ? <li className="nav-item" onClick={goMessage}>
               <span
                 className="nav-link"
                 style={{
@@ -204,12 +204,12 @@ const Header = () => {
                   paddingTop: 20,
                 }}
               >
-               {uid ? msgLength === '' ? null :  <div style={{position: 'absolute', left: '47%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
+               {uid ? msgLength === '' ? null :  <div style={{position: 'absolute', left: '40%', top: 0, width: 28, height: 28, backgroundColor: 'red', borderRadius: 18}}>
                 <p style={{color: '#f1f1f1', textAlign: 'center', paddingTop: 2}}>{msgLength}</p>
                 </div> : null}
                 Messages
               </span>
-            </li>
+            </li> : null}
 
             <li className="nav-item" onClick={goAboutus}>
               <span
@@ -232,7 +232,7 @@ const Header = () => {
                 style={{fontSize: 20, color: '#f3f3f3'}}><b style={{color: 'black', marginRight: 5}}> Hello Dear, </b>  {currUser.firstName}</span>
             </div> : null }
 
-          <div className="nav-item" onClick={goShowCarts}>
+         { uid ? currUser.email === 'admin@gmail.com' ?  null : <div className="nav-item" onClick={goShowCarts}>
           <span
                 className="nav-link"
                 style={{
@@ -243,9 +243,9 @@ const Header = () => {
                 {allItems.length > 0 ? <span style={{position: 'absolute', zIndex: 1, top: 3, right: '28vh', backgroundColor: '#f36e36', width: 30, height: 30, borderRadius: 15, color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer',}}>{allItems.length}</span> : null}
                 <Icon.Cart4 style={{marginBottom: 6, marginLeft: 10, color: 'black', fontSize: 45, cursor: 'pointer', }} />
               </span>
-          </div>
+          </div> : null }
 
-          <div className="nav-item" onClick={goYourOrder}>
+        {uid ? currUser.email === 'admin@gmail.com' ?  null : <div className="nav-item" onClick={goYourOrder}>
           <span
                 className="nav-link"
                 style={{
@@ -256,7 +256,7 @@ const Header = () => {
               >
                 Your Orders
               </span>
-          </div>
+          </div> : null}
 
          {uid ? <button type="button" className="btn btn-outline-success" onClick={logBtn}>Log Out</button> : null}
         </div>

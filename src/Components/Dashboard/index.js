@@ -184,25 +184,26 @@ const Dashboard = () => {
         </div>
       </div>
 
+          <div  style={{ display: "flex" }} className="container">
       {allItems.map((val, index) => {
         return (
-          <div key={index} style={{ display: "flex", flexDirection: "row" }}>
             <div
-              className="card"
+              className="card row"
               style={{
-                width: "30%",
-                height: "90vh",
+                width: "35%",
+                height: "87vh",
                 backgroundColor: "#f2f2f2",
                 borderRadius: 20,
-                margin: 20,
-                marginLeft: 40,
+                marginLeft: 25,
+                marginTop: 20,
                 boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
               }}
+              
             >
-              <div>
+              <div className="col-12 col-md-12 col-lg-12">
                 <img
                   src={val.productImage}
-                  style={{ width: "100%", height: "45vh", borderRadius: 20 }}
+                  style={{ width: "100%", height: "40vh", borderRadius: 20 }}
                 />
                 <div style={{ marginTop: 20 }}>
                   <div style={{ display: "flex", marginLeft: 10 }}>
@@ -294,7 +295,8 @@ const Dashboard = () => {
                         fontWeight: "bold",
                         fontSize: 20,
                         fontStyle: "revert",
-                        width: "25%",
+                        width: "45%",
+                        height: 30,
                       }}
                     >
                       Description :
@@ -304,7 +306,8 @@ const Dashboard = () => {
                         marginLeft: 5,
                         fontSize: 20,
                         fontStyle: "revert",
-                        width: "60%",
+                        width: "100%",
+                        height: "10vh",
                       }}
                     >
                       {val.description}
@@ -349,9 +352,9 @@ const Dashboard = () => {
                 </div> : null}
               </div>
             </div>
+              );
+            })}
           </div>
-        );
-      })}
     </div>
   );
 };
