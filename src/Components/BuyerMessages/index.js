@@ -1,28 +1,29 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
+import ReplyToUser from '../ReplyToUser/index';
 import firebase from "firebase/app";
 
 const Messages = () => {
   const [getData, setGetData] = useState([]);
   const [key, setKey] = useState("");
   const [pushKey, setPushKey] = useState("");
-  const [uid, setUid] = useState('')
+  const [uid, setUid] = useState("");
   // eslint-disable-next-line no-unused-vars
-  const [didMount, setDidMount] = useState(false); 
+  const [didMount, setDidMount] = useState(false);
 
   const deleteCard = (e, i) => {
     e.preventDefault();
-    setGetData('')
+    setGetData("");
     firebase.database().ref(`/contactUs/${key}/${pushKey[i]}/`).remove();
-    alert('Removed Successfully...')
-    giveData()
+    alert("Removed Successfully...");
+    giveData();
   };
 
   const giveData = () => {
     firebase
       .database()
-      .ref('contactUs')
+      .ref("contactUs")
       .on("value", (snapshot) => {
         let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
         let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
@@ -46,15 +47,15 @@ const Messages = () => {
           setGetData(newData);
         });
       });
-  }
+  };
 
   useEffect(() => {
-    setDidMount(true)
-    giveData()
-      firebase.auth().onAuthStateChanged((user) => {
-        let uid = user?.uid;
-        setUid(uid);
-      })
+    setDidMount(true);
+    giveData();
+    firebase.auth().onAuthStateChanged((user) => {
+      let uid = user?.uid;
+      setUid(uid);
+    });
     return () => setDidMount(false);
   }, []);
 
@@ -91,44 +92,51 @@ const Messages = () => {
         </div>
       </div>
 
-      {uid ? getData.length != 0 ? getData.map((val, index) => {
-        return (
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <div
-              className="card"
-              style={{
-                width: "30%",
-                backgroundColor: "#f2f2f2",
-                margin: 20,
-                padding: 10,
-                boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-              }}
-            >
-              <p>First Name : {val.firstName}</p>
-              <p>Last Name : {val.lastName}</p>
-              <p>Email : {val.email}</p>
-              <p>Message : {val.yourMessage}</p>
-
-              <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <button className="btn btn-success" style={{}}>
-                  Reply
-                </button>
-
-                <button
-                  onClick={(e) => deleteCard(e, index)}
-                  className="btn btn-danger"
-                  style={{}}
+      {uid ? (
+        getData.length != 0 ? (
+          getData.map((val, index) => {
+            return (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div
+                  className="card"
+                  style={{
+                    width: "35%",
+                    backgroundColor: "#f2f2f2",
+                    margin: 20,
+                    height: '35vh',
+                    padding: 10,
+                    boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
+                  }}
                 >
-                  Delete
-                </button>
-              </div>
-            </div>
+                  <p>First Name : {val.firstName}</p>
+                  <p>Last Name : {val.lastName}</p>
+                  <p>Email : {val.email}</p>
+                  <p>Message : {val.yourMessage}</p>
+                  <ReplyToUser deleteCard={deleteCard} index={index} keys={key} pushKey={pushKey} reply={val.adminReply} />
+
+                 
+                  </div>
+                </div>
+            );
+          })
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "20vh",
+            }}
+          >
+            
+            <p
+              style={{ fontSize: 30, fontStyle: "revert", fontWeight: "bold" }}
+            >
+              No Buyer's Messages
+            </p>
           </div>
-        );
-      })
-    : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh'}}> <p style={{fontSize: 30, fontStyle: 'revert', fontWeight: 'bold'}}>No Buyer's Messages</p> </div>
-    : null
-  }
+        )
+      ) : null}
 
       <div
         style={{

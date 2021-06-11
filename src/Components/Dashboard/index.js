@@ -184,7 +184,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-          <div  style={{ display: "flex" }} className="container">
+          <div  style={{ display: "flex", justifyContent: 'space-around', }} className="container">
       {allItems.map((val, index) => {
         return (
             <div

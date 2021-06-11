@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
+import * as Icon from 'react-bootstrap-icons'
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("");
@@ -8,6 +9,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [yourMessage, setYourMessage] = useState("");
   const [err, setErr] = useState("");
+  const [pushKey, setPushKey] = useState("");
   const [getData, setGetData] = useState([]);
 
   const handleFirstName = (e) => {
@@ -45,12 +47,19 @@ const ContactUs = () => {
       setEmail("");
       setYourMessage("");
       alert(
-        "Your Message, Successfully Sent, Please Wait For Admin Reply, Your Email."
+        "Your Message, Successfully Sent, Please Wait For Admin Reply."
       );
     } else {
       setErr("Please Fill the All Fields. Then Submit Your Data.");
     }
   };
+
+  const handleDelete = (e, i) => {
+    e.preventDefault()
+    let uid = firebase.auth()?.currentUser?.uid;
+    firebase.database().ref(`/contactUs/${uid}/${pushKey[i]}/`).remove()
+    alert('Removed successfully...');
+  }
 
   useEffect(() => {
     let uid = firebase.auth()?.currentUser?.uid;
@@ -59,7 +68,8 @@ const ContactUs = () => {
         .ref(`/contactUs/${uid}`)
         .on("value", (snapshot) => {
           let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
-          // let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
+          let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
+          setPushKey(key);
             setGetData(snap);
         });
   },[])
@@ -217,21 +227,51 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
-            <div className="card" style={{height: '30vh', width: '50%', 
-          boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-        }}>{
-              getData.map((data) => {
-                return (
-                  <div>
-                    <div><p>First Name : {data.firstName}</p></div>
-                    <div><p>Last Name : {data.lastName}</p></div>
-                    <div><p>Email : {data.email}</p></div>
-                    <div><p>Your Message : {data.yourMessage}</p></div>
-                    {/* <div><p>{data.}</p></div> */}
+              <div className="card container" style={{padding: 50, boxShadow: "rgb(179 179 179) 0px 1px 20px 0px", marginBottom: 100, paddingBottom: 0}}>
+                <div
+          style={{
+            backgroundColor: "#b3b3b3",
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 10,
+            marginBottom: 15,
+            borderRadius: 10,
+          }}
+        >
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: 25,
+              fontWeight: "bold",
+              color: "white",
+              fontStyle: "revert",
+            }}
+          >
+          Your Messages
+          </p>
+        </div>
+           {getData.length === 0 ? <p>No Messages</p> :
+             getData.map((data, index) => {
+               return (
+              <div className="card row" style={{borderRadius: 20, boxShadow: "rgb(179 179 179) 0px 1px 20px 0px", paddingTop: 20, marginBottom: 100,
+                }}>
+                    <div className="row col-12 col-md-12 col-sm-12">
+                      <p style={{fontSize: 20}}><b> First Name </b> : {data.firstName}</p>
+                      <p style={{fontSize: 20}}><b> Last Name </b> : {data.lastName}</p>
+                      <p style={{fontSize: 20}}><b> Email </b> : {data.email}</p>
+                      <p style={{fontSize: 20}}><b> Your Message </b> : {data.yourMessage}</p>
+                      <p style={{fontSize: 25}}> <b style={{color: 'red'}}> Admin Reply : </b> { data.adminReply || 'Please Waiting for admin reply...'}   </p>
+                      </div>
+                    <button className="btn btn-danger" onClick={(e) => handleDelete(e, index)} style={{borderRadius: 20,}}> 
+                    <Icon.XSquareFill style={{marginRight: 15}} />
+                    Delete your message
+                    </button>
                   </div>
                 )
               })
-            }</div>
+            }
+
+            </div>
     </>
   );
 };
