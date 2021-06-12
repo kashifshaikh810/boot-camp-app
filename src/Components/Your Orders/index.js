@@ -190,7 +190,7 @@ const YourOrders = () => {
         </div>
       </div>
 
-    { buyCartData.length < 0 ? <div style={{ display: "flex", justifyContent: "center" }}>
+    { buyCartData.length === 0 ? null : <> <div style={{ display: "flex", justifyContent: "center" }}>
         <div
           className="card"
           style={{
@@ -367,7 +367,7 @@ const YourOrders = () => {
           </div>
           
         </div>
-      </div> : null}
+      </div> </> }
 
       {buyCartData.length > 0 ? isLoading ? 
       <div style={{height: '83vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>

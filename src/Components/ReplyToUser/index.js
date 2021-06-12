@@ -11,8 +11,11 @@ const ReplyToUser = ({deleteCard, index, keys, pushKey, reply}) => {
 
   const handleReplySubmit = (e) => {
     e.preventDefault()
-    firebase.database().ref(`/contactUs/${keys}/${pushKey[index]}/`).update({adminReply: adminReply})
-    setadminReply('')
+    if(adminReply){
+      firebase.database().ref(`/contactUs/${keys}/${pushKey[index]}/`).update({adminReply: adminReply})
+      setadminReply('')
+      setShow(false)
+    }
   }
 
   const handleCancel = (e) => {

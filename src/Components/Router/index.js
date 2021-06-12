@@ -50,6 +50,7 @@ const Routing = () => {
             cursor: isLoading ? "progress" : "default",
           }}
         >
+            <p style={{fontSize: 25, marginRight: 20, marginTop: 10, fontWeight: 'bold'}}>Loading... please Wait a movement... !</p>
           <div
             className="spinner-border text-success"
             style={{ width: "4rem", height: "4rem" }}

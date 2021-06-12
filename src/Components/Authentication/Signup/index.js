@@ -9,23 +9,32 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showErr, setshowErr] = useState("");
+  const [showEmailErr, setshowEmailErr] = useState("");
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
+    setshowEmailErr('')
+    setshowErr('')
   };
 
   const handleLastName = (e) => {
     setLastName(e.target.value);
+    setshowEmailErr('')
+    setshowErr('')
   };
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
+    setshowEmailErr('')
+    setshowErr('')
   };
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+    setshowEmailErr('')
+    setshowErr('')
   };
 
   const handleSubmit = async (e) => {
@@ -43,21 +52,21 @@ const SignUp = () => {
       });
       setShow(true);
       setIsLoading(false)
-       history.push('/login')
-    } catch (err) {
-      console.log(err);
-      setIsLoading(false)
-      if (
-        err.message ===
-        "The email address is already in use by another account."
-      ) {
-        setshowErr("This Email Already use by Another Account");
-      }
-    }
       setFirstName("");
       setLastName("");
       setEmail("");
       setPassword("");
+       history.push('/login')
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false)
+      if (err?.code === "auth/weak-password"){
+        setshowErr('Password at least 6 characters.')
+      }
+      if(err?.code === "auth/invalid-email"){
+        setshowEmailErr("email address is badly formatted.")
+      }
+    }
   };
 
   useEffect(() => {
@@ -127,7 +136,7 @@ const SignUp = () => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Email</label>
+                <label className="form-label" style={{color: showEmailErr ? 'red' : '#f1f1f1'}}>Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -137,9 +146,10 @@ const SignUp = () => {
                   required
                 />
               </div>
+              <p style={{ color: "red", textAlign: 'center' }}>{showEmailErr}</p>
 
               <div className="mb-3">
-                <label className="form-label">Password</label>
+                <label className="form-label" style={{color: showErr ? 'red' : '#f1f1f1'}}>Password</label>
                 <input
                   type="password"
                   className="form-control"
@@ -149,7 +159,7 @@ const SignUp = () => {
                   required
                 />
               </div>
-              <p style={{ color: "red", fontWeight: "bold" }}>{showErr}</p>
+              <p style={{ color: "red", textAlign: 'center' }}>{showErr}</p>
 
               <svg xmlns="http://www.w3.org/2000/svg" style={{display: 'none'}}>
               <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
