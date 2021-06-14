@@ -27,6 +27,7 @@ const Routing = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    try{
     firebase.auth().onAuthStateChanged((user) => {
       let uid = user?.uid;
       let use = user?.email;
@@ -36,6 +37,9 @@ const Routing = () => {
         setIsLoading(false);
       }, 1500);
     });
+  }catch(err){
+    console.log(err, 'err')
+  }
   }, [uid]);
 
   return (

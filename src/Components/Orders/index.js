@@ -69,7 +69,7 @@ const BuyerOrders = () => {
     setIsLoading(true);
     cartData();
     return () => setDidMount(false);
-  }, []);
+  }, [isLoading]);
 
   return (
     <div>
