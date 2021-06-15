@@ -15,7 +15,7 @@ const Messages = () => {
   const deleteCard = (e, i) => {
     e.preventDefault();
     setGetData("");
-    firebase.database().ref(`/contactUs/${key}/${pushKey[i]}/`).remove();
+    firebase.database().ref(`/contactUs/${key.keys[i]}/${pushKey[i]}/`).remove();
     alert("Removed Successfully...");
     giveData();
   };
@@ -28,8 +28,8 @@ const Messages = () => {
         let snap = snapshot.val() ? Object.values(snapshot.val()) : [];
         let key = snapshot.val() ? Object.keys(snapshot.val()) : [];
         let d = [...key];
-        d.forEach((aa) => {
-          setKey(aa);
+        d.forEach((aa, i) => {
+          setKey({keys: d});
         });
         let newData = [];
         let allKey = [];
@@ -74,6 +74,7 @@ const Messages = () => {
             display: "flex",
             justifyContent: "center",
             paddingTop: 10,
+            marginTop: 10,
             borderRadius: 10,
             width: "62%",
           }}
@@ -112,7 +113,7 @@ const Messages = () => {
                   <p>Last Name : {val.lastName}</p>
                   <p>Email : {val.email}</p>
                   <p>Message : {val.yourMessage}</p>
-                  <ReplyToUser deleteCard={deleteCard} index={index} keys={key} pushKey={pushKey} reply={val.adminReply} />
+                  <ReplyToUser deleteCard={deleteCard} index={index} uid={key.keys} pushKey={pushKey} reply={val.adminReply} />
 
                  
                   </div>

@@ -105,13 +105,7 @@ const BuyerOrders = () => {
         </div>
       </div>
 
-      {buyCartData.length === 0 ? (
-        isLoading ? (
-          <p style={{ textAlign: "center", fontSize: 30, fontWeight: "bold" }}>
-            No Carts Added
-          </p>
-        ) : null
-      ) : isLoading ? (
+      {buyCartData.length > 0 ?  isLoading ? (
         <div
           style={{
             height: "83vh",
@@ -389,7 +383,11 @@ const BuyerOrders = () => {
             );
           })}
         </div>
-      )}
+      ) : isLoading ? (
+          null        
+      ) : <p style={{ textAlign: "center", fontSize: 30, fontWeight: "bold" }}>
+      No Carts Added
+    </p>}
     </div>
   );
 };

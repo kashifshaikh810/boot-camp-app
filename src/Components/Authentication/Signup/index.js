@@ -66,6 +66,9 @@ const SignUp = () => {
       if(err?.code === "auth/invalid-email"){
         setshowEmailErr("email address is badly formatted.")
       }
+      if(err?.code === "auth/email-already-in-use"){
+        setshowEmailErr('This email is already exist.')
+      }
     }
   };
 

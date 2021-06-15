@@ -85,8 +85,9 @@ const Dashboard = () => {
             backgroundColor: "#b3b3b3",
             display: "flex",
             justifyContent: "center",
+            marginTop: 10,
             paddingTop: 10,
-            borderRadius: 10,
+             borderRadius: 10,
             width: "70%",
             boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
@@ -185,7 +186,7 @@ const Dashboard = () => {
       </div>
 
           <div  style={{ display: "flex", justifyContent: 'space-around', }} className="container">
-      {allItems.map((val, index) => {
+      {allItems.length > 0 ? allItems.map((val, index) => {
         return (
             <div
               className="card row"
@@ -353,7 +354,7 @@ const Dashboard = () => {
               </div>
             </div>
               );
-            })}
+            }) : <p style={{textAlign: 'center', fontSize: 25}}>Admin No Carts Added</p>}
           </div>
     </div>
   );

@@ -157,6 +157,7 @@ const ShowCarts = () => {
                 display: "flex",
                 justifyContent: "center",
                 paddingTop: 10,
+                marginTop: 10,
                 borderRadius: 10,
                 width: "70%",
               }}

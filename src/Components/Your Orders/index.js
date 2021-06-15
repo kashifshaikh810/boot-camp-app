@@ -171,6 +171,7 @@ const YourOrders = () => {
             display: "flex",
             justifyContent: "center",
             paddingTop: 10,
+            marginTop: 10,
             marginBottom: 10,
             borderRadius: 10,
             width: "70%",

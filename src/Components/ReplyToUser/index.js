@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import firebase from "firebase/app";
 
-const ReplyToUser = ({deleteCard, index, keys, pushKey, reply}) => {
+const ReplyToUser = ({deleteCard, index, uid, pushKey, reply}) => {
   const [show, setShow] = useState(false);
   const [adminReply, setadminReply] = useState('');
 
@@ -12,7 +12,7 @@ const ReplyToUser = ({deleteCard, index, keys, pushKey, reply}) => {
   const handleReplySubmit = (e) => {
     e.preventDefault()
     if(adminReply){
-      firebase.database().ref(`/contactUs/${keys}/${pushKey[index]}/`).update({adminReply: adminReply})
+      firebase.database().ref(`/contactUs/${uid[index]}/${pushKey[index]}/`).update({adminReply: adminReply})
       setadminReply('')
       setShow(false)
     }

@@ -18,7 +18,7 @@ const AboutUs = () => {
       >
         <div
           className="card text-center"
-          style={{ backgroundColor: "#b3b3b3", width: "80%", borderRadius: 15 }}
+          style={{ backgroundColor: "#b3b3b3", width: "80%", borderRadius: 15, marginTop: 10}}
         >
           <p
             style={{
