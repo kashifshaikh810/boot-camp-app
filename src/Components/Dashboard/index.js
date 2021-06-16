@@ -89,6 +89,7 @@ const Dashboard = () => {
             paddingTop: 10,
              borderRadius: 10,
             width: "70%",
+            maxWidth: "100%",
             boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
         >
@@ -105,53 +106,32 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        <div
-          className="card"
-          style={{
-            width: "95%",
-            height: "50vh",
-            paddingTop: 10,
-            backgroundColor: "#f2f2f2",
-            borderRadius: 20,
-            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-          }}
-        >
           <div
             style={{
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginLeft: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap'
             }}
           >
             <div>
               <img
                 src={"./off.jpg"}
-                style={{ width: "140%", height: "45vh", borderRadius: 20 }}
+                style={{ maxWidth: '100%', height: 500, borderRadius: 20 }}
               />
             </div>
             <div>
               <img
                 src={"./offTwo.jpg"}
                 style={{
-                  width: "95%",
-                  height: "45vh",
+                  maxWidth: "100%",
+                  height: 400,
                   marginLeft: 7,
                   borderRadius: 20,
                 }}
               />
             </div>
           </div>
-        </div>
-      </div>
 
       <div
         style={{
@@ -165,11 +145,12 @@ const Dashboard = () => {
             backgroundColor: "#b3b3b3",
             display: "flex",
             justifyContent: "center",
-            paddingTop: 10,
+            padding: 10,
             borderRadius: 10,
-            width: "30%",
+            maxWidth: "100%",
             marginTop: 10,
             boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
+            maxHeight: 90
           }}
         >
           <p
@@ -185,29 +166,32 @@ const Dashboard = () => {
         </div>
       </div>
 
-          <div  style={{ display: "flex", justifyContent: 'space-around', }} className="container">
+          <div  style={{ display: "flex", justifyContent: 'space-around', flexWrap: 'wrap'}} >
       {allItems.length > 0 ? allItems.map((val, index) => {
         return (
             <div
-              className="card row"
+              className="card"
               style={{
-                width: "35%",
-                height: "87vh",
+                width: "50%",
+                maxWidth: '100%',
+                height: 'auto',
                 backgroundColor: "#f2f2f2",
                 borderRadius: 20,
                 marginLeft: 25,
                 marginTop: 20,
+                paddingBottom: 20,
                 boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
               }}
               
             >
-              <div className="col-12 col-md-12 col-lg-12">
+              <div>
                 <img
                   src={val.productImage}
-                  style={{ width: "100%", height: "40vh", borderRadius: 20 }}
+                  style={{ width: "100%", height:300, borderRadius: 20 }}
                 />
                 <div style={{ marginTop: 20 }}>
-                  <div style={{ display: "flex", marginLeft: 10 }}>
+                  <div style={{ display: "flex", marginLeft: 10, maxWidth: '100%',
+                        minWidth: '80%' }}>
                     <p
                       style={{
                         fontWeight: "bold",
@@ -222,12 +206,13 @@ const Dashboard = () => {
                         marginLeft: 5,
                         fontSize: 20,
                         fontStyle: "revert",
+                        
                       }}
                     >
                       {val.productTitile}
                     </p>
                   </div>
-                  <div style={{ display: "flex", marginLeft: 10 }}>
+                  <div style={{ display: "flex", marginLeft: 10, }}>
                     <p
                       style={{
                         fontWeight: "bold",
@@ -242,9 +227,10 @@ const Dashboard = () => {
                         marginLeft: 5,
                         fontSize: 20,
                         fontStyle: "revert",
+                        maxWidth: '50%',
                       }}
                     >
-                      ${val.productPrice}
+                      ${val.productPrice} 
                     </p>
                   </div>
 
@@ -254,6 +240,7 @@ const Dashboard = () => {
                         fontWeight: "bold",
                         fontSize: 20,
                         fontStyle: "revert",
+                        maxWidth: '70%'
                       }}
                     >
                       Location :
@@ -263,6 +250,7 @@ const Dashboard = () => {
                         marginLeft: 5,
                         fontSize: 20,
                         fontStyle: "revert",
+                        maxWidth: '40%'
                       }}
                     >
                       {val.yourLocation}
@@ -284,6 +272,7 @@ const Dashboard = () => {
                         marginLeft: 5,
                         fontSize: 20,
                         fontStyle: "revert",
+                        maxWidth: '100%'
                       }}
                     >
                       {val.productCondition}
@@ -296,8 +285,8 @@ const Dashboard = () => {
                         fontWeight: "bold",
                         fontSize: 20,
                         fontStyle: "revert",
-                        width: "45%",
                         height: 30,
+                        maxWidth: "30%",
                       }}
                     >
                       Description :
@@ -307,8 +296,8 @@ const Dashboard = () => {
                         marginLeft: 5,
                         fontSize: 20,
                         fontStyle: "revert",
-                        width: "100%",
-                        height: "10vh",
+                        maxWidth: "60%",
+                        maxHeight: 200,
                       }}
                     >
                       {val.description}

@@ -93,16 +93,16 @@ const AddItems = () => {
   }}
 
   return (
-    <div style={{display: 'flex', justifyContent: "center", height: '92vh', backgroundColor: '#f2f2f2', marginBottom: 100}}>
-    <div className="card" style={{width: '50%', height: '90vh', borderRadius: 25, 
+    <div style={{display: 'flex', justifyContent: "center", height: 800, backgroundColor: '#f2f2f2', marginBottom: 100}}>
+    <div className="card" style={{minWidth: '50%', height: 800, borderRadius: 25, 
                 boxShadow: 'rgb(179 179 179) 0px 1px 20px 0px', 
               }}>
         <div style={{backgroundColor: '#b3b3b3', display: 'flex', justifyContent: 'center', paddingTop: 10, borderRadius: 10}}>
         <p style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white', fontStyle: 'revert'}}>Add Items</p>
         </div>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 10, backgroundColor: '#f2f2f2'}}>
-        <div className="card" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 10,  width: '40%', borderRadius: 10, backgroundColor: '#b3b3b3'}}>
-          <p style={{fontWeight: 'bold', fontStyle: 'revert', fontSize: 30,  color: 'white'}}>Include Some Details</p>
+        <div className="card" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 10,  maxWidth: '100%', borderRadius: 10, backgroundColor: '#b3b3b3'}}>
+          <p style={{fontWeight: 'bold', fontStyle: 'revert', fontSize: 30,  color: 'white', maxHeight: 250}}>Include Some Details</p>
         </div>
         </div>
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 20, backgroundColor: '#f2f2f2'}}>

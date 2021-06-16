@@ -86,6 +86,7 @@ const BuyerOrders = () => {
             display: "flex",
             justifyContent: "center",
             paddingTop: 10,
+            marginTop: 10,
             marginBottom: 10,
             borderRadius: 10,
             width: "70%",
@@ -123,28 +124,30 @@ const BuyerOrders = () => {
           </div>
         </div>
       ) : (
-        <div style={{ height: "300vh" }}>
+        <div style={{ height: "auto", marginBottom: 90, }}>
           {buyCartData.map((item, index) => {
             return (
-              <div key={index} style={{ flexWrap: "wrap" }}>
+              <div key={index} style={{ display: 'flex', justifyContent: 'center', }}>
                 <div
                   className="card"
                   style={{
-                    width: "35%",
-                    height: "107vh",
+                    width: "60%",
+                    maxWidth: "100%",
+                    height: 'auto',
                     backgroundColor: "#f2f2f2",
                     borderRadius: 20,
                     margin: 20,
-                    marginLeft: 40,
+                    paddingBottom: 20,
                     boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-                  }}
+                    }}
                 >
                   <div>
                     <img
                       src={item.productImage}
                       style={{
-                        width: "100%",
-                        height: "45vh",
+                        width: '100%',
+                        maxWidth: "100%",
+                        height: 400,
                         borderRadius: 20,
                       }}
                     />
@@ -155,6 +158,7 @@ const BuyerOrders = () => {
                             fontWeight: "bold",
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '40%',
                           }}
                         >
                           Product Titile :
@@ -164,6 +168,7 @@ const BuyerOrders = () => {
                             marginLeft: 5,
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '50%',
                           }}
                         >
                           {item.productTitile}
@@ -175,6 +180,7 @@ const BuyerOrders = () => {
                             fontWeight: "bold",
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '45%',
                           }}
                         >
                           Product Price :
@@ -184,6 +190,7 @@ const BuyerOrders = () => {
                             marginLeft: 5,
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '50%',
                           }}
                         >
                           ${item.productPrice}
@@ -196,6 +203,7 @@ const BuyerOrders = () => {
                             fontWeight: "bold",
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '100%',
                           }}
                         >
                           Location :
@@ -205,6 +213,7 @@ const BuyerOrders = () => {
                             marginLeft: 5,
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '50%',
                           }}
                         >
                           {item.yourLocation}
@@ -217,6 +226,7 @@ const BuyerOrders = () => {
                             fontWeight: "bold",
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '50%',
                           }}
                         >
                           Product Condition :
@@ -226,6 +236,7 @@ const BuyerOrders = () => {
                             marginLeft: 5,
                             fontSize: 20,
                             fontStyle: "revert",
+                            maxWidth: '50%',
                           }}
                         >
                           {item.productCondition}
@@ -238,7 +249,7 @@ const BuyerOrders = () => {
                             fontWeight: "bold",
                             fontSize: 20,
                             fontStyle: "revert",
-                            width: "22%",
+                            maxWidth: '100%',
                           }}
                         >
                           Description :
@@ -248,7 +259,7 @@ const BuyerOrders = () => {
                             marginLeft: 5,
                             fontSize: 20,
                             fontStyle: "revert",
-                            width: "60%",
+                            maxWidth: '45%',
                           }}
                         >
                           {item.description}
@@ -262,6 +273,7 @@ const BuyerOrders = () => {
                           marginLeft: 10,
                           fontSize: 35,
                           fontWeight: "bold",
+                          maxWidth: '70%',
                         }}
                       >
                         Product Quantity :
@@ -273,6 +285,7 @@ const BuyerOrders = () => {
                           justifyContent: "center",
                           alignItems: "center",
                           marginBottom: 15,
+                          maxHeight: 200
                         }}
                       >
                         <div
@@ -310,8 +323,8 @@ const BuyerOrders = () => {
                       <div
                         style={{
                           backgroundColor: "#b3b3b3",
-                          width: "85%",
-                          height: 50,
+                          maxWidth: "100%",
+                          maxHeight: 150,
                           borderRadius: 30,
                           display: "flex",
                           justifyContent: "center",
@@ -325,8 +338,10 @@ const BuyerOrders = () => {
                             paddingTop: 10,
                           }}
                         >
-                          <b style={{ color: "#f3f3f3" }}>Total Amount : </b>
-                          <span style={{ color: "blue" }}>
+                          <b style={{ color: "#f3f3f3", 
+                        }}>Total Amount : </b>
+                          <span style={{ color: "blue",
+                          }}>
                             ${item.totalPrice}
                           </span>
                         </p>
@@ -335,7 +350,7 @@ const BuyerOrders = () => {
 
                     <div style={{ display: "flex", fontSize: 25 }}>
                       <b style={{ marginLeft: 10, marginRight: 5 }}>Status</b>:
-                      <p style={{ marginLeft: 5 }}>{item.status}</p>
+                      <p style={{ marginLeft: 5, maxWidth: '50%' }}>{item.status}</p>
                     </div>
 
                     <div

@@ -8,7 +8,10 @@ const AboutUs = () => {
   }
 
   return (
-    <div>
+    <div style={{
+      overflow: 'hidden',
+      marginBottom: 50
+    }}>
       <div
         style={{
           display: "flex",
@@ -37,8 +40,9 @@ const AboutUs = () => {
         <img
           src={"image.jpg"}
           style={{
-            width: "50%",
-            height: "60%",
+            maxWidth: "50%",
+            maxHeight: 600,
+            minWidth: '50%',
             borderRadius: 20,
             marginBottom: 20,
             marginLeft: 20,
@@ -48,10 +52,12 @@ const AboutUs = () => {
         <div
           className="card text-center"
           style={{
-            width: "30%",
-            height: "60vh",
+            maxWidth: "40%",
+            maxHeight: 400,
+            minWidth: '40%',
             borderRadius: 15,
             marginTop: 10,
+            overflow: 'hidden',
             backgroundColor: "#b3b3b3",
           }}
         >
@@ -61,16 +67,11 @@ const AboutUs = () => {
             dining-room, for the Father Superior had only two rooms alltogether;
             they were, however, much larger and more comfortable than Father
             Zossima's. But tehre was was no great luxury about the furnishng of
-            these rooms eithar. The furniture was of mohogany, covered with
-            leather, in the old-fashionned style of 1820 the floor was not even
             stained, but evreything was shining with cleanlyness, and there were
             many chioce flowers in the windows; the most sumptuous thing in the
-            room at the moment was, of course, the beatifuly decorated table.
-            The cloth was clean, the service shone; there were three kinds of
-            well-baked bread, two bottles of wine, two of excellent mead, and a
-            large glass jug of kvas -- both the latter made in the monastery,
-            and famous in the neigborhood. There was no vodka. Rakitin related
-            afterwards that there were five dishes.
+            afterwards that there were five dishes.the most sumptuous thing in the
+            afterwards that there were five dishes.here (and the
+            with that Aesop, thta buffoon, that Pierrot, and have merely been
           </p>
         </div>
       </div>
@@ -79,8 +80,9 @@ const AboutUs = () => {
         <img
           src={"imageTwo.jpg"}
           style={{
-            width: "50%",
-            height: "60%",
+            maxWidth: "50%",
+            maxHeight: 500,
+            minWidth: '50%',
             borderRadius: 20,
             marginBottom: 20,
             marginLeft: 20,
@@ -89,10 +91,13 @@ const AboutUs = () => {
         <div
           className="card text-center"
           style={{
-            width: "30%",
-            height: "60vh",
+            maxWidth: "40%",
+            maxHeight: 500,
+            minWidth: '40%',
             borderRadius: 15,
             marginTop: 10,
+            marginBottom: 30,
+            overflow: 'hidden',
             backgroundColor: "#b3b3b3",
           }}
         >
@@ -104,14 +109,9 @@ const AboutUs = () => {
             to have been upset by him in Father Zossima's cell, and so to have
             forgotten himself. "Teh monks were not to blame, in any case," he
             reflceted, on the steps. "And if they're decent people here (and the
-            Father Superior, I understand, is a nobleman) why not be friendly
-            and courteous withthem? I won't argue, I'll fall in with everything,
-            I'll win them by politness, and show them that I've nothing to do
-            with that Aesop, thta buffoon, that Pierrot, and have merely been
-            takken in over this affair, just as they have." He determined to
-            drop his litigation with the monastry, and relinguish his claims to
-            the wood-cuting and fishery rihgts at once. He was the more ready to
-            do this becuase the rights had.
+            with that Aesop, thta buffoon, that Pierrot, and have merely beenhere (and the
+            they were, however, much larger and more comfortable than Father
+            with that Aesop, thta buffoon, 
           </p>
         </div>
       </div>
@@ -120,8 +120,9 @@ const AboutUs = () => {
         <img
           src={"imageThree.jpg"}
           style={{
-            width: "50%",
-            height: "60%",
+            maxWidth: "50%",
+            maxHeight: 500,
+            minWidth: '50%',
             borderRadius: 20,
             marginBottom: 20,
             marginLeft: 20,
@@ -130,9 +131,11 @@ const AboutUs = () => {
         <div
           className="card text-center"
           style={{
-            width: "30%",
-            height: "52vh",
+            maxWidth: "40%",
+            maxHeight: 500,
+            minWidth: '40%',
             borderRadius: 15,
+            overflow: 'hidden',
             backgroundColor: "#b3b3b3",
           }}
         >
@@ -146,14 +149,10 @@ const AboutUs = () => {
             let fall words which were quite out of keeping... in fact, quite
             unseamly... as" -- he glanced at the monks -- "your reverance is, no
             doubt, already aware. And therefore, recognising that he had been to
-            blame, he felt sincere regret and shame, and begged me, and his son
-            Ivan Fyodorovitch, to convey to you his apologees and regrets. In
-            brief, he hopes and desires to make amends later. He asks your
-            blessinq, 
           </p>
         </div>
       </div>
-      <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10}}>
+      <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10, marginTop: 10}}>
       <button type="button" onClick={handler} class="btn btn-outline-success">Go to Top</button>
       </div>
     </div>

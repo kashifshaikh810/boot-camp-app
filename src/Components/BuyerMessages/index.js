@@ -101,10 +101,11 @@ const Messages = () => {
                 <div
                   className="card"
                   style={{
-                    width: "35%",
+                    minWidth: "35%",
                     backgroundColor: "#f2f2f2",
                     margin: 20,
-                    height: '35vh',
+                    minHeight: 260,
+                    maxHeight: 280,
                     padding: 10,
                     boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
                   }}
@@ -126,12 +127,13 @@ const Messages = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: "20vh",
             }}
           >
             
             <p
-              style={{ fontSize: 30, fontStyle: "revert", fontWeight: "bold" }}
+              style={{ fontSize: 30, fontStyle: "revert", fontWeight: "bold",
+              
+            }}
             >
               No Buyer's Messages
             </p>
@@ -149,8 +151,11 @@ const Messages = () => {
         <div
           className="card"
           style={{
-            width: "62%",
-            height: "50vh",
+            maxHeight: 570,
+            padding: 20,
+              maxWidth: '90%',
+              minWidth: '40%',
+              marginBottom: 40,
             backgroundColor: "#f3f3f3",
             boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
           }}
@@ -159,7 +164,6 @@ const Messages = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "flex-end",
               height: "20vh",
             }}
           >
@@ -167,7 +171,9 @@ const Messages = () => {
               className="card"
               style={{
                 paddingTop: 10,
-                width: "35%",
+                maxHeight: 100,
+              maxWidth: '90%',
+              minWidth: '65%',
                 backgroundColor: "#b3b3b3",
                 borderRadius: 20,
               }}
@@ -190,7 +196,7 @@ const Messages = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-evenly",
+              justifyContent: "space-around",
               alignItems: "flex-end",
               flexWrap: "wrap",
             }}
@@ -198,19 +204,19 @@ const Messages = () => {
             <div>
               <img
                 src={"./apple.png"}
-                style={{ borderRadius: 100, width: "70%" }}
+                style={{ borderRadius: 100, width: "70%", marginBottom: 10, }}
               />
             </div>
             <div>
               <img
                 src={"./amazon.png"}
-                style={{ borderRadius: 100, width: "70%" }}
+                style={{ borderRadius: 100, width: "70%", marginBottom: 10 }}
               />
             </div>
             <div style={{ paddingBottom: 30 }}>
               <img
                 src={"./google.png"}
-                style={{ borderRadius: 100, width: "70%" }}
+                style={{ borderRadius: 100, width: "70%", marginBottom: 10 }}
               />
             </div>
           </div>
