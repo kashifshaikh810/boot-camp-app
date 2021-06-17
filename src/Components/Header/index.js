@@ -12,8 +12,7 @@ const Header = () => {
       <div className="navbar">
         <div className="container-fluid">
           <ul
-            className="navbar-nav me-auto mb-2 mb-lg-0"
-            style={{ display: "flex", flexDirection: "row", }}
+            className="navbar-nav me-auto mb-2 mb-lg-0 ul-content"
           >
 
         <li>
@@ -22,7 +21,7 @@ const Header = () => {
         </li>
 
             <li>
-              <p className="htext">Boot Camp App</p>
+              <p className="simple-header">Boot Camp App</p>
             </li>
             </ul>
       </div>

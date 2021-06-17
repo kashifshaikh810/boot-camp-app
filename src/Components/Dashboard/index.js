@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import * as Icon from "react-bootstrap-icons";
 import { useHistory } from "react-router-dom";
+import './index.css'
 
 const Dashboard = () => {
   const [allItems, setAllItems] = useState([]);
@@ -81,25 +82,9 @@ const Dashboard = () => {
         }}
       >
         <div
-          style={{
-            backgroundColor: "#b3b3b3",
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 10,
-            paddingTop: 10,
-             borderRadius: 10,
-            width: "70%",
-            maxWidth: "100%",
-            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-          }}
-        >
+        className="headerContainer">
           <p
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              color: "white",
-              fontStyle: "revert",
-            }}
+            className="home-head"
           >
             Home Page
           </p>
@@ -141,25 +126,10 @@ const Dashboard = () => {
         }}
       >
         <div
-          style={{
-            backgroundColor: "#b3b3b3",
-            display: "flex",
-            justifyContent: "center",
-            padding: 10,
-            borderRadius: 10,
-            maxWidth: "100%",
-            marginTop: 10,
-            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-            maxHeight: 90
-          }}
+          className="items-header-container"
         >
           <p
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              color: "white",
-              fontStyle: "revert",
-            }}
+            className="items-header"
           >
            { role === 'admin@gmail.com' ?  "See Your Items You Can Sell Now" : "Available Items You Can Buy Now"}
           </p>
@@ -170,19 +140,7 @@ const Dashboard = () => {
       {allItems.length > 0 ? allItems.map((val, index) => {
         return (
             <div
-              className="card"
-              style={{
-                width: "50%",
-                maxWidth: '100%',
-                height: 'auto',
-                backgroundColor: "#f2f2f2",
-                borderRadius: 20,
-                marginLeft: 25,
-                marginTop: 20,
-                paddingBottom: 20,
-                boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-              }}
-              
+              className="card card-container"
             >
               <div>
                 <img
@@ -286,7 +244,7 @@ const Dashboard = () => {
                         fontSize: 20,
                         fontStyle: "revert",
                         height: 30,
-                        maxWidth: "30%",
+                        maxWidth: "40%",
                       }}
                     >
                       Description :
