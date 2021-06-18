@@ -96,7 +96,7 @@ const Routing = () => {
           ) : (
             <Redirect to="/" />
           )}
-          <Footer />
+          {/* <Footer /> */}
         </Router>
       )}
     </>

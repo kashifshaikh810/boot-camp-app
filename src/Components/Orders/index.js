@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import * as Icon from "react-bootstrap-icons";
+import './index.css';
 
 const BuyerOrders = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +73,7 @@ const BuyerOrders = () => {
   }, [isLoading]);
 
   return (
-    <div>
+    <div className="buyer-orders-container">
       <div
         style={{
           display: "flex",
@@ -81,25 +82,10 @@ const BuyerOrders = () => {
         }}
       >
         <div
-          style={{
-            backgroundColor: "#b3b3b3",
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: 10,
-            marginTop: 10,
-            marginBottom: 10,
-            borderRadius: 10,
-            width: "70%",
-            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-          }}
+          className="buyers-orders-header"
         >
           <p
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              color: "white",
-              fontStyle: "revert",
-            }}
+            className="buyers-orders-content"
           >
             Buyer Orders
           </p>
@@ -129,17 +115,7 @@ const BuyerOrders = () => {
             return (
               <div key={index} style={{ display: 'flex', justifyContent: 'center', }}>
                 <div
-                  className="card"
-                  style={{
-                    width: "60%",
-                    maxWidth: "100%",
-                    height: 'auto',
-                    backgroundColor: "#f2f2f2",
-                    borderRadius: 20,
-                    margin: 20,
-                    paddingBottom: 20,
-                    boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-                    }}
+                  className="card buyers-orders-card"
                 >
                   <div>
                     <img

@@ -1,0 +1,142 @@
+.buyers-orders-header {
+  background-color: #b3b3b3;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: 50%;
+  box-shadow: rgb(179 179 179) 0px 1px 20px 0px;
+}
+
+.buyers-orders-content {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  font-style: revert;
+}
+
+.buyers-orders-card {
+  width: 40%;
+  height: "auto";
+  background-color: #f2f2f2;
+  border-radius: 20px !important;
+  margin: 20px;
+  padding-bottom: 20px;
+  box-shadow: rgb(179 179 179) 0px 1px 20px 0px !important;
+}
+
+.buyer-orders-container {
+    max-width: 100%;
+}
+
+
+/* big landscap tablets, laptops, and desktop */
+
+@media only screen and (min-width: 1200px) {
+  .buyers-orders-header {
+    width: 80%;
+  }
+  .buyers-orders-content {
+    font-size: 15px;
+  }
+
+  .buyers-orders-card {
+    width: 70%;
+  }
+}
+
+/* tablets, landscape, low resolution laptop and desktop */
+
+@media only screen and (max-width: 990px) {
+  .buyers-orders-header {
+    width: 85%;
+  }
+  .buyers-orders-content {
+    font-size: 18px;
+  }
+
+  .buyers-orders-card {
+    width: 65%;
+  }
+}
+
+/* portrait tablet, e-readers kindle, */
+
+@media only screen and (min-width: 800px) {
+  .buyers-orders-header {
+    width: 80%;
+  }
+  .buyers-orders-content {
+    font-size: 20px;
+  }
+
+  .buyers-orders-card {
+    width: 60%;
+  }
+
+}
+
+/* smartpones, android phones, landscape Iphone */
+
+@media only screen and (min-width: 600px) {
+  .buyers-orders-header {
+    width: 80%;
+  }
+  .buyers-orders-content {
+    font-size: 23px;
+  }
+
+  .buyers-orders-card {
+    width: 55%;
+  }
+
+
+}
+
+/* smartphones, portrait iphone, portrait 480*320 phones (Android) */
+
+@media only screen and (min-widht: 480px) {
+  .buyers-orders-header {
+    width: 80%;
+  }
+  .buyers-orders-content {
+    font-size: 25px;
+  }
+
+  .buyers-orders-card {
+    width: 50%;
+  }
+
+}
+
+/* big landscap tablets, laptops, and desktop */
+/* 
+@media only screen and (min-width: 1200px){
+    
+} */
+
+/* tablets, landscape, low resolution laptop and desktop */
+
+/* @media only screen and (max-width: 990px){
+    
+} */
+
+/* portrait tablet, e-readers kindle, */
+/* 
+@media only screen and (min-width: 800px){
+    
+} */
+
+/* smartpones, android phones, landscape Iphone */
+/* 
+@media only screen and (min-width: 600px){
+    
+} */
+
+/* smartphones, portrait iphone, portrait 480*320 phones (Android) */
+
+/* @media only screen and (min-widht: 480px){
+    
+} */
