@@ -44,7 +44,7 @@ const ReplyToUser = ({deleteCard, index, uid, pushKey, reply}) => {
                       style={{cursor: reply ? 'not-allowed' : ''}}
                       onClick={() => setShow(true)}
                     >
-                     {reply ? 'Replyed' : 'Reply' } 
+                     {reply ? 'Replied' : 'Reply' } 
                     </button>
                     <button
                       onClick={(e) => deleteCard(e, index)}

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import * as Icon from "react-bootstrap-icons";
+import './index.css';
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("");
@@ -83,13 +84,7 @@ const ContactUs = () => {
         }}
       >
         <div
-          className="card"
-          style={{
-            width: "50%",
-            height: "80vh",
-            borderRadius: "4%",
-            boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-          }}
+          className="card contact-us-card"
         >
           <div
             style={{

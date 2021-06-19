@@ -1,0 +1,75 @@
+.contact-us-card {
+  width: 60%;
+  height: 1000;
+  border-radius: 20px !important;
+  box-shadow: rgb(179 179 179) 0px 1px 20px 0px !important;
+}
+
+/* big landscap tablets, laptops, and desktop */
+
+@media only screen and (min-width: 1200px) {
+    .contact-us-card {
+        width: 40%;
+      }
+}
+
+/* tablets, landscape, low resolution laptop and desktop */
+
+@media only screen and (max-width: 990px) {
+    .contact-us-card {
+        width: 45%;
+      }
+}
+
+/* portrait tablet, e-readers kindle, */
+
+@media only screen and (min-width: 800px) {
+    .contact-us-card {
+        width: 50%;
+      }
+}
+
+/* smartpones, android phones, landscape Iphone */
+
+@media only screen and (min-width: 600px) {
+    .contact-us-card {
+        width: 55%;
+      }
+}
+
+/* smartphones, portrait iphone, portrait 480*320 phones (Android) */
+
+@media only screen and (min-widht: 480px) {
+    .contact-us-card {
+        width: 60%;
+      }
+}
+
+
+
+
+
+/* big landscap tablets, laptops, and desktop */
+
+/* @media only screen and (min-width: 1200px) { */
+/* } */
+
+/* tablets, landscape, low resolution laptop and desktop */
+
+/* @media only screen and (max-width: 990px) { */
+/* } */
+
+/* portrait tablet, e-readers kindle, */
+
+/* @media only screen and (min-width: 800px) { */
+/* } */
+
+/* smartpones, android phones, landscape Iphone */
+
+/* @media only screen and (min-width: 600px) { */
+/* } */
+
+/* smartphones, portrait iphone, portrait 480*320 phones (Android) */
+
+/* @media only screen and (min-widht: 480px) {
+} */

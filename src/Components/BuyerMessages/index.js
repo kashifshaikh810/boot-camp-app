@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import ReplyToUser from '../ReplyToUser/index';
 import firebase from "firebase/app";
+import './index.css'
 
 const Messages = () => {
   const [getData, setGetData] = useState([]);
@@ -99,16 +100,7 @@ const Messages = () => {
             return (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <div
-                  className="card"
-                  style={{
-                    minWidth: "35%",
-                    backgroundColor: "#f2f2f2",
-                    margin: 20,
-                    minHeight: 260,
-                    maxHeight: 280,
-                    padding: 10,
-                    boxShadow: "rgb(179 179 179) 0px 1px 20px 0px",
-                  }}
+                  className="card buyer-messages-card"
                 >
                   <p>First Name : {val.firstName}</p>
                   <p>Last Name : {val.lastName}</p>

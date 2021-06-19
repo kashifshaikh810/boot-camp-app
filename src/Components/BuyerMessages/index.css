@@ -1,0 +1,141 @@
+
+.buyer-messages-card {
+    width: 35%;
+    background-color: #f2f2f2;
+    margin: 20px;
+    height: 30vh;
+    padding: 10px;
+    box-shadow: rgb(179 179 179) 0px 1px 20px 0px !important;
+ }
+
+ 
+
+/* big landscap tablets, laptops, and desktop */
+
+@media only screen and (min-width: 1200px) {
+    .buyer-messages-card {
+        width: 25%;
+        height: 35vh;
+     }
+
+     .buyer-messages-card p {
+        font-size: 18px;
+    }
+}
+
+/* tablets, landscape, low resolution laptop and desktop */
+
+@media only screen and (max-width: 990px) {
+    .buyer-messages-card {
+        width: 28%;
+        height: 33vh;
+     }
+
+     .buyer-messages-card p {
+        font-size: 17px;
+    }
+}
+
+/* portrait tablet, e-readers kindle, */
+
+@media only screen and (max-width: 800px) {
+    .buyer-messages-card {
+        width: 31%;
+        height: 30vh;
+
+     }
+     .buyer-messages-card p {
+        font-size: 16px;
+    }
+}
+
+/* smartpones, android phones, landscape Iphone */
+
+@media only screen and (max-width: 600px) {
+    .buyer-messages-card {
+        width: 33%;
+        height: 28vh;
+
+     }
+
+     .buyer-messages-card p {
+        font-size: 15px;
+    }
+}
+
+/* smartphones, portrait iphone, portrait 480*320 phones (Android) */
+
+ @media only screen and (max-width: 480px) {
+    .buyer-messages-card {
+        width: 35%;
+        height: 25vh;
+
+     }
+     .buyer-messages-card p {
+        font-size: 10px;
+    }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* big landscap tablets, laptops, and desktop */
+
+/* @media only screen and (min-width: 1200px) { */
+/* } */
+
+/* tablets, landscape, low resolution laptop and desktop */
+
+/* @media only screen and (max-width: 990px) { */
+/* } */
+
+/* portrait tablet, e-readers kindle, */
+
+/* @media only screen and (min-width: 800px) { */
+/* } */
+
+/* smartpones, android phones, landscape Iphone */
+
+/* @media only screen and (min-width: 600px) { */
+/* } */
+
+/* smartphones, portrait iphone, portrait 480*320 phones (Android) */
+
+/* @media only screen and (min-widht: 480px) {
+} */
